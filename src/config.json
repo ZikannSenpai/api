@@ -31,52 +31,16 @@
                 ]
             }
         ],
-        "anime": {
-            "otakudesu": [
-                {
-                    "name": "Homepage",
-                    "endpoint": "/api/anime/otakudesu/home",
-                    "filename": "home",
-                    "method": "GET",
-                    "params": []
-                },
-                {
-                    "name": "Detail",
-                    "endpoint": "/api/anime/otakudesu/detail",
-                    "filename": "detail",
-                    "method": "GET",
-                    "params": [
-                        {
-                            "name": "q",
-                            "required": true,
-                            "description": "Slug"
-                        }
-                    ]
-                }
-            ],
-            "kuramanime": [
-                {
-                    "name": "Homepage",
-                    "endpoint": "/api/anime/kuramanime/home",
-                    "filename": "home",
-                    "method": "GET",
-                    "params": []
-                },
-                {
-                    "name": "Detail",
-                    "endpoint": "/api/anime/kuramanime/detail",
-                    "filename": "detail",
-                    "method": "GET",
-                    "params": [
-                        {
-                            "name": "q",
-                            "required": true,
-                            "description": "Slug"
-                        }
-                    ]
-                }
-            ]
-        },
+        "anime": [
+            {
+                "name": "Homepage Anime",
+                "endpoint": "/api/anime/home",
+                "filename": "home",
+                "method": "GET",
+                "params": []
+            }
+        ],
+
         "maker": [
             {
                 "name": "Brat Generator",
