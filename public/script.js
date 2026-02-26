@@ -56,16 +56,19 @@ function startWIBClock() {
     setInterval(updateTime, 1000);
 
     // ambil last update dari api
-    fetch("/api/lastup")
+    fetch("/api/last-update")
         .then(res => res.json())
         .then(data => {
-            if (lup) {
-                lup.innerText = data.date;
+            if (lup && data.date) {
+                const d = new Date(data.date);
+                lup.innerText = d.toLocaleDateString("id-ID", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                });
             }
         })
-        .catch(err => {
-            console.error("Gagal ambil last update:", err);
-        });
+        .catch(err => console.log(err));
 
     function updateTime() {
         const now = new Date();
