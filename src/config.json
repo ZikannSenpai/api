@@ -35,7 +35,7 @@
             {
                 "name": "Detail Anime",
                 "endpoint": "/api/anime/detail",
-                "filename": "detailanime",
+                "filename": "detail",
                 "method": "GET",
                 "params": [
                     {
@@ -48,7 +48,7 @@
             {
                 "name": "Homepage Anime",
                 "endpoint": "/api/anime/home",
-                "filename": "homepage anime",
+                "filename": "home",
                 "method": "GET",
                 "params": []
             }
