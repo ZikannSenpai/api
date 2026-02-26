@@ -44,6 +44,13 @@
                         "description": "Slug"
                     }
                 ]
+            },
+            {
+                "name": "Homepage Anime",
+                "endpoint": "/api/anime/home",
+                "filename": "homepage anime",
+                "method": "GET",
+                "params": []
             }
         ],
         "maker": [
