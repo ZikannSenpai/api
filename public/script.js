@@ -194,7 +194,7 @@ async function kuroneko(config) {
     terminalLog(`Loading ${total} routes...`, "info");
 
     let count = 0;
-    const maxShow = 3;
+    const maxShow = 5;
     for (const route of endpoints) {
         if (count < maxShow) {
             terminalLog(
