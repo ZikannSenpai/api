@@ -50,6 +50,7 @@
                 "endpoint": "/api/anime/home",
                 "filename": "home",
                 "method": "GET",
+                "source": ["Otakudesu", "Kuramanime"],
                 "params": []
             }
         ],

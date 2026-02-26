@@ -315,22 +315,6 @@ function loadEnd(tags) {
         grid.className = "api-section-grid grid grid-cols-1 gap-4 hidden mb-8";
 
         routes.forEach((route, idx) => {
-            let endpointList = [];
-
-            if (route.source && route.source.length) {
-                const parts = route.endpoint.split("/");
-                const last = parts.pop();
-                const base = parts.join("/");
-
-                endpointList = route.source.map(src => {
-                    return `${base}/${src}/${last}`;
-                });
-            } else {
-                endpointList = [route.endpoint];
-            }
-
-            const finalEndpoint = endpointList[0];
-
             const id = `${cat}-${idx}`.replace(/\s+/g, "-");
             const searchTerms = `${route.name} ${route.endpoint} ${cat}`;
 
