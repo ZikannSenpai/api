@@ -1,0 +1,44 @@
+api
+├── README.md
+├── index.ts
+├── node_modules
+├── package-lock.json
+├── package.json
+├── public
+│   ├── 404.html
+│   ├── docs.html
+│   ├── donasi.html
+│   ├── landing.html
+│   ├── script.js
+│   └── style.css
+├── router
+│   ├── ai
+│   │   └── zikaneko.ts
+│   ├── download
+│   │   ├── facebook.ts
+│   │   ├── instagram.ts
+│   │   └── tiktok.ts
+│   ├── maker
+│   │   └── brat.ts
+│   ├── random
+│   │   └── waifu.ts
+│   ├── search
+│   │   ├── pinterest.ts
+│   │   ├── tiktok.ts
+│   │   └── yts.ts
+│   └── tools
+│       ├── shorturl.ts
+│       └── ssweb.ts
+├── src
+│   ├── autoload.ts
+│   ├── config.json
+│   ├── danzz.jpg
+│   ├── logger.ts
+│   ├── qris.ts
+│   ├── reminder.json
+│   └── thumbnail.jpg
+├── tes.js
+├── tmp
+│   └── visitors.json
+├── tsconfig.json
+└── vercel.json
