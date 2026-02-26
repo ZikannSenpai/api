@@ -13,18 +13,9 @@ export default async function listAnime(req: Request, res: Response) {
                 Origin: "https://sankavollerei.com"
             }
         });
-
-        console.log(url);
-
-        console.log(
-            res.json({
-                status: true,
-                result: data
-            })
-        );
         res.json({
             status: true,
-            result: data.data.data
+            result: data
         });
     } catch (err: any) {
         res.status(500).json({
