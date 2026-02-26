@@ -188,7 +188,17 @@ async function kuroneko(config) {
     printRaw(`> node src/index.ts\n`);
     await new Promise(r => setTimeout(r, 400));
 
-    const endpoints = Object.values(config.tags).flat();
+    const endpoints = [];
+
+    Object.values(config.tags).forEach(tag => {
+        if (Array.isArray(tag)) {
+            endpoints.push(...tag);
+        } else {
+            Object.values(tag).forEach(sourceArr => {
+                endpoints.push(...sourceArr);
+            });
+        }
+    });
     const total = endpoints.length;
 
     terminalLog(`Loading ${total} routes...`, "info");
@@ -292,126 +302,104 @@ function loadEnd(tags) {
     container.innerHTML = "";
 
     for (const [cat, routes] of Object.entries(tags)) {
+        // kalau nested (anime: otakudesu, kuramanime)
+        if (typeof routes === "object" && !Array.isArray(routes)) {
+            for (const [source, sourceRoutes] of Object.entries(routes)) {
+                const section = document.createElement("div");
+                section.className = "api-section w-full";
+
+                const catId = `cat-${cat}-${source}`.replace(/\s+/g, "-");
+
+                const headerBtn = `
+                    <button onclick="toggleCategory('${catId}')" class="w-full flex items-center justify-between bg-white text-primary p-4 rounded-lg shadow-hard border-2 border-primary mb-4">
+                        <h2 class="text-lg font-bold uppercase">${cat} / ${source}</h2>
+                        <span class="text-xs">${sourceRoutes.length} EP</span>
+                    </button>
+                `;
+
+                const grid = document.createElement("div");
+                grid.id = `grid-${catId}`;
+                grid.className = "hidden mb-8";
+
+                sourceRoutes.forEach((route, idx) => {
+                    const finalEndpoint = route.endpoint;
+                    const id = `${cat}-${source}-${idx}`.replace(/\s+/g, "-");
+                    const searchTerms = `${route.name} ${route.endpoint} ${cat} ${source}`;
+
+                    const card = document.createElement("div");
+                    card.className =
+                        "api-card-wrapper w-full bg-white border-2 border-primary/20 rounded-lg";
+                    card.setAttribute("data-search", searchTerms);
+
+                    card.innerHTML = `
+                        <div class="p-3 cursor-pointer select-none" onclick="toggle('${id}')">
+                            <div class="flex justify-between items-center gap-3">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <span class="px-1.5 py-0.5 text-[10px] font-bold text-white bg-sky-500 rounded font-mono">${route.method}</span>
+                                    <code class="font-bold text-xs truncate font-mono text-slate-700">${finalEndpoint}</code>
+                                </div>
+                                <i id="icon-${id}" class="fa-solid fa-plus text-xs text-primary"></i>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mt-2 font-mono truncate">${route.name}</p>
+                        </div>
+
+                        <div id="body-${id}" class="hidden p-3 border-t">
+                            <button onclick="testReq(this, '${finalEndpoint}', '${route.method}', '${id}')" 
+                                class="bg-primary text-white px-3 py-1 rounded text-xs">
+                                Execute
+                            </button>
+                        </div>
+                    `;
+
+                    grid.appendChild(card);
+                });
+
+                section.innerHTML = headerBtn;
+                section.appendChild(grid);
+                container.appendChild(section);
+            }
+
+            continue;
+        }
+
+        // kategori biasa (ai, maker, dll)
         const section = document.createElement("div");
         section.className = "api-section w-full";
 
-        const catId = `cat-${cat.replace(/\s+/g, "-")}`;
+        const catId = `cat-${cat}`.replace(/\s+/g, "-");
 
         const headerBtn = `
-            <button onclick="toggleCategory('${catId}')" class="w-full flex items-center justify-between bg-white text-primary p-4 rounded-lg shadow-hard border-2 border-primary mb-4 group hover:bg-gray-50 active:scale-[0.99] transition-all duration-150">
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-folder-open text-xl"></i>
-                    <h2 class="text-lg font-display font-bold uppercase tracking-wider">${cat}</h2>
-                </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-[10px] font-mono bg-primary/10 border border-primary/20 px-2 py-1 rounded text-primary font-bold">${routes.length} EP</span>
-                    <i id="arrow-${catId}" class="cat-arrow fa-solid fa-chevron-down transition-transform duration-300"></i>
-                </div>
+            <button onclick="toggleCategory('${catId}')" class="w-full flex items-center justify-between bg-white text-primary p-4 rounded-lg shadow-hard border-2 border-primary mb-4">
+                <h2 class="text-lg font-bold uppercase">${cat}</h2>
+                <span class="text-xs">${routes.length} EP</span>
             </button>
         `;
 
         const grid = document.createElement("div");
         grid.id = `grid-${catId}`;
-        grid.className = "api-section-grid grid grid-cols-1 gap-4 hidden mb-8";
+        grid.className = "hidden mb-8";
 
         routes.forEach((route, idx) => {
-            let endpointList = [];
-
-            if (route.source && route.source.length) {
-                const parts = route.endpoint.split("/");
-                const last = parts.pop();
-                const base = parts.join("/");
-
-                endpointList = route.source.map(src => {
-                    return `${base}/${src}/${last}`;
-                });
-            } else {
-                endpointList = [route.endpoint];
-            }
-
-            const finalEndpoint = endpointList[0];
-
+            const finalEndpoint = route.endpoint;
             const id = `${cat}-${idx}`.replace(/\s+/g, "-");
-            const searchTerms = `${route.name} ${route.endpoint} ${cat}`;
-
-            let inputsHtml = "";
-            if (route.params?.length) {
-                inputsHtml =
-                    `<div class="bg-gray-50 p-4 border-t-2 border-primary/20 grid gap-3">` +
-                    route.params
-                        .map(
-                            p =>
-                                `<div class="relative">
-                        <div class="flex justify-between items-center mb-1">
-                            <label class="text-[10px] font-bold text-primary uppercase tracking-wider flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 bg-primary rounded-full inline-block"></span> ${p.name.toUpperCase()}
-                            </label>
-                            <span class="text-[9px] font-bold ${p.required ? "text-red-500" : "text-primary/60"}">${p.required ? "REQ" : "OPT"}</span>
-                        </div>
-                        <input type="text" id="input-${id}-${p.name}" placeholder="${p.description || "Value..."}" 
-                        class="w-full border-2 border-primary/20 p-2 font-mono text-xs focus:border-primary focus:outline-none transition-colors rounded bg-white">
-                     </div>`
-                        )
-                        .join("") +
-                    `</div>`;
-            }
-
-            const methodColor =
-                route.method === "GET"
-                    ? "bg-sky-500"
-                    : route.method === "POST"
-                      ? "bg-green-500"
-                      : route.method === "DELETE"
-                        ? "bg-red-500"
-                        : "bg-orange-500";
 
             const card = document.createElement("div");
             card.className =
-                "api-card-wrapper w-full bg-white border-2 border-primary/20 rounded-lg hover:border-primary transition-colors";
-            card.setAttribute("data-search", searchTerms);
+                "api-card-wrapper w-full bg-white border-2 border-primary/20 rounded-lg";
 
             card.innerHTML = `
                 <div class="p-3 cursor-pointer select-none" onclick="toggle('${id}')">
                     <div class="flex justify-between items-center gap-3">
                         <div class="flex items-center gap-2 overflow-hidden">
-                            <span class="px-1.5 py-0.5 text-[10px] font-bold text-white ${methodColor} rounded font-mono">${route.method}</span>
-                            <code class="font-bold text-xs sm:text-sm truncate font-mono text-slate-700">${finalEndpoint}</code>
+                            <span class="px-1.5 py-0.5 text-[10px] font-bold text-white bg-sky-500 rounded font-mono">${route.method}</span>
+                            <code class="font-bold text-xs truncate font-mono text-slate-700">${finalEndpoint}</code>
                         </div>
-                        <i id="icon-${id}" class="fa-solid fa-plus text-xs text-primary transition-transform duration-300"></i>
+                        <i id="icon-${id}" class="fa-solid fa-plus text-xs text-primary"></i>
                     </div>
                     <p class="text-[10px] text-gray-500 mt-2 font-mono truncate">${route.name}</p>
                 </div>
-                
-                <div id="body-${id}" class="hidden animate-slide-down">
-                    ${inputsHtml}
-                    
-                    <div class="p-3 flex gap-2 border-t-2 border-primary/10 bg-gray-50/50">
-                        <button id="btn-exec-${id}" onclick="testReq(this, '${finalEndpoint}', '${route.method}', '${id}')" class="flex-1 bg-primary text-white font-bold py-2 hover:bg-violet-700 transition-colors shadow-hard-hover active:shadow-none active:translate-y-[2px] text-[10px] tracking-widest uppercase rounded border border-black min-w-[100px]">
-                            Execute
-                        </button>
-                        <button onclick="copy('${finalEndpoint}')" class="px-3 border border-primary/30 bg-white hover:bg-primary/5 rounded" title="Copy URL">
-                            <i class="fa-regular fa-copy text-primary text-xs"></i>
-                        </button>
-                    </div>
+            `;
 
-                    <div id="res-area-${id}" class="hidden border-t-4 border-primary/50 bg-slate-900 text-[11px] relative rounded-b-lg overflow-hidden shadow-inner">
-                        <div class="flex justify-between items-center bg-black/40 px-3 py-2 border-b border-white/10">
-                            <div class="flex gap-2 items-center">
-                                <span class="w-2 h-2 rounded-full bg-yellow-400" id="status-dot-${id}"></span>
-                                <span id="status-${id}" class="text-gray-400 font-bold font-mono">WAITING</span>
-                            </div>
-                            <span id="time-${id}" class="text-gray-500 font-mono text-[10px]">--ms</span>
-                        </div>
-                        
-                        <div class="absolute top-2 right-2 flex gap-1 z-20">
-                             <a id="dl-btn-${id}" class="hidden bg-green-500/20 text-green-400 border border-green-500/50 px-2 py-0.5 hover:bg-green-500/30 rounded cursor-pointer transition-colors"><i class="fa-solid fa-download"></i></a>
-                             <button onclick="copyRes('${id}')" class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-0.5 hover:bg-blue-500/30 rounded transition-colors"><i class="fa-regular fa-clone"></i></button>
-                             <button onclick="reset('${id}')" class="bg-red-500/20 text-red-400 border border-red-500/50 px-2 py-0.5 hover:bg-red-500/30 rounded transition-colors"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-
-                        <div id="output-${id}" class="font-mono text-[10px] overflow-x-auto whitespace-pre-wrap break-all max-h-[400px] p-4 custom-scrollbar min-h-[80px] text-gray-300 leading-relaxed"></div>
-                    </div>
-                </div>`;
             grid.appendChild(card);
         });
 
@@ -420,7 +408,6 @@ function loadEnd(tags) {
         container.appendChild(section);
     }
 }
-
 window.toggleCategory = catId => {
     const grid = document.getElementById(`grid-${catId}`);
     const arrow = document.getElementById(`arrow-${catId}`);
