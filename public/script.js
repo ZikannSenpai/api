@@ -375,7 +375,7 @@ function loadEnd(tags) {
                     <div class="flex justify-between items-center gap-3">
                         <div class="flex items-center gap-2 overflow-hidden">
                             <span class="px-1.5 py-0.5 text-[10px] font-bold text-white ${methodColor} rounded font-mono">${route.method}</span>
-                            <code class="font-bold text-xs sm:text-sm truncate font-mono text-slate-700">${route.endpoint}</code>
+                            <code class="font-bold text-xs sm:text-sm truncate font-mono text-slate-700">${finalEndpoint}</code>
                         </div>
                         <i id="icon-${id}" class="fa-solid fa-plus text-xs text-primary transition-transform duration-300"></i>
                     </div>
@@ -386,10 +386,10 @@ function loadEnd(tags) {
                     ${inputsHtml}
                     
                     <div class="p-3 flex gap-2 border-t-2 border-primary/10 bg-gray-50/50">
-                        <button id="btn-exec-${id}" onclick="testReq(this, '${route.endpoint}', '${route.method}', '${id}')" class="flex-1 bg-primary text-white font-bold py-2 hover:bg-violet-700 transition-colors shadow-hard-hover active:shadow-none active:translate-y-[2px] text-[10px] tracking-widest uppercase rounded border border-black min-w-[100px]">
+                        <button id="btn-exec-${id}" onclick="testReq(this, '${finalEndpoint}', '${route.method}', '${id}')" class="flex-1 bg-primary text-white font-bold py-2 hover:bg-violet-700 transition-colors shadow-hard-hover active:shadow-none active:translate-y-[2px] text-[10px] tracking-widest uppercase rounded border border-black min-w-[100px]">
                             Execute
                         </button>
-                        <button onclick="copy('${route.endpoint}')" class="px-3 border border-primary/30 bg-white hover:bg-primary/5 rounded" title="Copy URL">
+                        <button onclick="copy('${finalEndpoint}')" class="px-3 border border-primary/30 bg-white hover:bg-primary/5 rounded" title="Copy URL">
                             <i class="fa-regular fa-copy text-primary text-xs"></i>
                         </button>
                     </div>
