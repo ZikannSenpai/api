@@ -12,7 +12,7 @@ export default async function detailAnime(req: Request, res: Response) {
     }
 
     try {
-        const url = `https://sankavollerei.com/anime/detail/${slug}`;
+        const url = `https://www.sankavollerei.com/anime/detail/${slug}`;
 
         const { data } = await axios.get(url, {
             headers: {
@@ -23,7 +23,7 @@ export default async function detailAnime(req: Request, res: Response) {
 
         res.json({
             status: true,
-            result: data
+            result: data.data.data
         });
     } catch (err: any) {
         res.status(500).json({
