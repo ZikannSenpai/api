@@ -15,7 +15,7 @@ export default async function listAnime(req: Request, res: Response) {
         });
         res.json({
             status: true,
-            result: data.status
+            result: data.data
         });
     } catch (err: any) {
         res.status(500).json({
