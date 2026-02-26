@@ -49,10 +49,23 @@ function showToast(msg, type = "info") {
 function startWIBClock() {
     const timeEl = document.getElementById("server-time");
     const dateEl = document.getElementById("server-date");
+    const lup = document.getElementById("server-up");
     if (!timeEl) return;
 
     updateTime();
     setInterval(updateTime, 1000);
+
+    // ambil last update dari api
+    fetch("/api/lastup")
+        .then(res => res.json())
+        .then(data => {
+            if (lup) {
+                lup.innerText = data.date;
+            }
+        })
+        .catch(err => {
+            console.error("Gagal ambil last update:", err);
+        });
 
     function updateTime() {
         const now = new Date();
@@ -69,6 +82,7 @@ function startWIBClock() {
             month: "long",
             year: "numeric"
         });
+
         if (timeEl) timeEl.innerText = timeString;
         if (dateEl) dateEl.innerText = dateString;
     }
