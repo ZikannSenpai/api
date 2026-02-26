@@ -31,29 +31,52 @@
                 ]
             }
         ],
-        "anime": [
-            {
-                "name": "Detail Anime",
-                "endpoint": "/api/anime/detail",
-                "filename": "detail",
-                "method": "GET",
-                "params": [
-                    {
-                        "name": "q",
-                        "required": true,
-                        "description": "Slug"
-                    }
-                ]
-            },
-            {
-                "name": "Homepage Anime",
-                "endpoint": "/api/anime/home",
-                "filename": "home",
-                "method": "GET",
-                "source": ["Otakudesu", "Kuramanime"],
-                "params": []
-            }
-        ],
+        "anime": {
+            "otakudesu": [
+                {
+                    "name": "Homepage",
+                    "endpoint": "/api/anime/otakudesu/home",
+                    "filename": "home",
+                    "method": "GET",
+                    "params": []
+                },
+                {
+                    "name": "Detail",
+                    "endpoint": "/api/anime/otakudesu/detail",
+                    "filename": "detail",
+                    "method": "GET",
+                    "params": [
+                        {
+                            "name": "q",
+                            "required": true,
+                            "description": "Slug"
+                        }
+                    ]
+                }
+            ],
+            "kuramanime": [
+                {
+                    "name": "Homepage",
+                    "endpoint": "/api/anime/kuramanime/home",
+                    "filename": "home",
+                    "method": "GET",
+                    "params": []
+                },
+                {
+                    "name": "Detail",
+                    "endpoint": "/api/anime/kuramanime/detail",
+                    "filename": "detail",
+                    "method": "GET",
+                    "params": [
+                        {
+                            "name": "q",
+                            "required": true,
+                            "description": "Slug"
+                        }
+                    ]
+                }
+            ]
+        },
         "maker": [
             {
                 "name": "Brat Generator",
