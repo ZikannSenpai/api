@@ -168,7 +168,8 @@ const registerRoute = (
                         ) {
                             const modifiedBody = {
                                 creator: targetCreator,
-                                statusMessage: "SUKSES",
+                                apiName: config.settings.apiName,
+                                version: config.settings.apiVersion,
                                 ...body
                             };
                             return originalJson.call(this, modifiedBody);
