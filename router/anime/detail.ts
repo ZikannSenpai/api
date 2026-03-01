@@ -22,10 +22,7 @@ export default async function detailAnime(req: Request, res: Response) {
         });
 
         res.json({
-            status: "success",
-            statusCode: res.status,
-            apiCategory: "Otakudesu Detail Anime",
-            ok: true,
+            status: true,
             result: data.data.data
         });
     } catch (err: any) {
