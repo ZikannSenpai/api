@@ -168,8 +168,8 @@ const registerRoute = (
                         ) {
                             const modifiedBody = {
                                 creator: targetCreator,
-                                apiName: config.settings.apiName,
-                                version: config.settings.apiVersion,
+                                apiName: "ZikaNeko",
+                                version: "V1.0",
                                 ...body
                             };
                             return originalJson.call(this, modifiedBody);
