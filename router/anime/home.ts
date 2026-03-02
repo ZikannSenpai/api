@@ -13,7 +13,8 @@ export default async function detailAnime(req: Request, res: Response) {
         });
 
         res.json({
-            status: true,
+            apiType: "Otakudesu",
+            ok: true,
             data: data.data
         });
     } catch (err: any) {
