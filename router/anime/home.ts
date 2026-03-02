@@ -14,7 +14,7 @@ export default async function detailAnime(req: Request, res: Response) {
 
         res.json({
             status: true,
-            result: data.data
+            data: data.data
         });
     } catch (err: any) {
         res.status(500).json({
