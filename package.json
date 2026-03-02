@@ -1,16 +1,16 @@
 {
-  "name": "zikaneko",
+  "name": "kuroneko",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "rm -rf dist",
-    "prebuild": "npm run clean",
-    "build": "tsc && npm run copy-assets",
-    "copy-assets": "mkdir -p dist/src dist/router && cp -r src/*.json src/*.jpg dist/src/ 2>/dev/null || true && cp -r public dist/ 2>/dev/null || true",
-    "start": "node dist/index.js",
-    "dev": "ts-node index.ts",
-    "dev:watch": "nodemon --exec ts-node index.ts",
-    "pm2": "pm2 start index.ts --name kuroneko --interpreter node --node-args=\"-r ts-node/register\" && pm2 save"
+  "clean": "rm -rf dist",
+  "prebuild": "npm run clean",
+  "build": "tsc && npm run copy-assets",
+  "copy-assets": "mkdir -p dist/src dist/router && cp -r src/*.json src/*.jpg dist/src/ 2>/dev/null || true && cp -r public dist/ 2>/dev/null || true",
+  "start": "node dist/index.js",
+  "dev": "ts-node index.ts",
+  "dev:watch": "nodemon --exec ts-node index.ts",
+  "pm2": "pm2 start index.ts --name kuroneko --interpreter node --node-args=\"-r ts-node/register\" && pm2 save"
   },
   "dependencies": {
     "axios": "^1.6.0",
@@ -22,7 +22,6 @@
     "express": "^4.18.2",
     "file-type": "^16.5.4",
     "form-data": "^4.0.0",
-    "ignore": "^7.0.5",
     "jimp": "^0.22.10",
     "tough-cookie": "^4.1.3"
   },

@@ -1,21 +1,29 @@
 import { Request, Response } from "express";
 import axios from "axios";
 
-export default async function listAnime(req: Request, res: Response) {
+export default async function detailAnime(req: Request, res: Response) {
+    const { slug } = req.query;
+
+    if (!slug) {
+        return res.status(400).json({
+            status: false,
+            message: "Parameter 'slug' diperlukan."
+        });
+    }
+
     try {
-        const url = "https://www.sankavollerei.com/anime/home";
+        const url = `https://www.sankavollerei.com/anime/home`;
 
         const { data } = await axios.get(url, {
             headers: {
                 "User-Agent": "Mozilla/5.0",
-                Accept: "application/json, text/plain, */*",
-                Referer: "https://sankavollerei.com/",
-                Origin: "https://sankavollerei.com"
+                Referer: "https://sankavollerei.com/"
             }
         });
+
         res.json({
             status: true,
-            result: data.data
+            result: data.data.data
         });
     } catch (err: any) {
         res.status(500).json({
