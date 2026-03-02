@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ZikaNyaw | Documents</title>
-    
+    <link rel="icon" type="image/x-icon" href="favico/favicon.ico" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="favico/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="favico/favicon-16x16.png"
+        />
+        <link rel="apple-touch-icon" href="favico/apple-touch-icon.png" />
+        
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
@@ -278,8 +292,8 @@
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
                 <div>
-                    <h1 id="nav-title" class="font-bold text-xl tracking-tight text-fmn-dark uppercase">KURONEKO</h1>
-                    <span class="text-[10px] font-bold text-fmn-purple tracking-widest">DANZZ FOR YOU</span>
+                    <h1 id="nav-title" class="font-bold text-xl tracking-tight text-fmn-dark uppercase">ZIKANEKO</h1>
+                    <span class="text-[10px] font-bold text-fmn-purple tracking-widest">ZIKK FOR ALL</span>
                 </div>
             </div>
 
@@ -289,7 +303,7 @@
                 </div>
             </div>
 
-            <a href="https://github.com/DanzzAraAra" target="_blank" class="w-10 h-10 border border-fmn-blue/50 bg-white text-fmn-dark hover:bg-fmn-blue hover:text-white flex items-center justify-center rounded-full shadow-sm transition-all">
+            <a href="https://github.com/ZikannSenpai" target="_blank" class="w-10 h-10 border border-fmn-blue/50 bg-white text-fmn-dark hover:bg-fmn-blue hover:text-white flex items-center justify-center rounded-full shadow-sm transition-all">
                 <i class="fa-brands fa-github text-xl"></i>
             </a>
         </div>
@@ -312,7 +326,7 @@
                 <div id="term-logs" class="p-3 text-gray-300 overflow-y-auto flex-1 custom-scrollbar space-y-1 leading-relaxed"></div>
                 
                 <div id="term-input-line" class="hidden px-3 pb-2 pt-1 border-t border-gray-700 bg-term-bg">
-                    <span class="text-green-500 font-bold mr-1">root@danzz:~/kuroneko$</span>
+                    <span class="text-green-500 font-bold mr-1">root@ziknyaw:~/zikaneko$</span>
                     <span class="inline-block w-2 h-4 bg-gray-400 align-middle animate-blink"></span>
                 </div>
             </div>
@@ -490,7 +504,7 @@
             // --- TYPING ANIMATION FOR CMD ---
             const cmdLine = document.createElement('div');
             cmdLine.className = 'text-gray-300 break-all';
-            cmdLine.innerHTML = '<span class="text-green-500">root@danzz:~/kuroneko$</span> ';
+            cmdLine.innerHTML = '<span class="text-green-500">root@ziknyaw:~/zikaneko$</span> ';
             
             const typeSpan = document.createElement('span');
             typeSpan.className = 'text-white font-bold';
@@ -531,7 +545,7 @@
             
             await new Promise(r => setTimeout(r, 500));
             terminalLog(``, 'system');
-            terminalLog(`[✓] Server running on https://api.danzy.web.id`, 'success');
+            terminalLog(`[✓] Server running on https://zikaneko.vercel.app`, 'success');
             terminalLog(`[WATCH] Watching...`, 'warn');
             
             const container = document.getElementById('api-container');
