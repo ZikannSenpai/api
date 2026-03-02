@@ -38,6 +38,13 @@
                 "filename": "home",
                 "method": "GET",
                 "params": []
+            },
+            {
+                "name": "Homepage Otaku",
+                "endpoint": "/api/anime/otaku",
+                "filename": "otaku",
+                "method": "GET",
+                "params": []
             }
         ],
 
