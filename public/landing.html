@@ -650,14 +650,13 @@
                         // Initialize button physics after content is visible
                         initSoftButtons();
                     }, remaining);
-                })
-                .catch(err => {
+                });
+            /*.catch(err => {
                     console.error(err);
                     // Fallback for demo/error
                     document.getElementById("dash-title").innerText =
                         "KuroNeko";
-                    document.getElementById("dash-desc").innerText =
-                        config.settings.description;
+                    document.getElementById("dash-desc").innerText = "tes";
 
                     setTimeout(() => {
                         document
@@ -669,6 +668,7 @@
                         initSoftButtons();
                     }, 1000);
                 });
+                */
         </script>
     </body>
 </html>
