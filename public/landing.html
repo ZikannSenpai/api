@@ -15,6 +15,12 @@
             href="favico/favicon-32x32.png"
         />
         <link
+            id="favicon"
+            rel="icon"
+            type="image/jpg"
+            href="../src/danzz.jpg"
+        />
+        <link
             rel="icon"
             type="image/png"
             sizes="16x16"
@@ -635,8 +641,7 @@
                     };
 
                     if (config.settings.favicon)
-                        document.getElementById("favicon").href =
-                            config.settings.favicon;
+                        document.getElementById("favicon").href = config.settings.favicon;
 
                     const elapsed = Date.now() - startLoad;
                     const remaining = Math.max(0, minLoadTime - elapsed);
@@ -651,7 +656,7 @@
                         initSoftButtons();
                     }, remaining);
                 });
-            /*.catch(err => {
+            .catch(err => {
                     console.error(err);
                     // Fallback for demo/error
                     document.getElementById("dash-title").innerText =
@@ -668,7 +673,6 @@
                         initSoftButtons();
                     }, 1000);
                 });
-                */
         </script>
     </body>
 </html>
