@@ -33,11 +33,24 @@
         ],
         "anime": [
             {
-                "name": "Homepage Anime",
+                "name": "Mendapatkan data dari halaman utama",
                 "endpoint": "/api/anime/home",
                 "filename": "home",
                 "method": "GET",
                 "params": []
+            },
+            {
+                "name": "Mendapatkan detail lengkap sebuah anime",
+                "endpoint": "/api/anime/anime",
+                "filename": "anime",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "slug",
+                        "required": true,
+                        "description": "Slug"
+                    }
+                ]
             }
         ],
 
