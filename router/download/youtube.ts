@@ -16,8 +16,7 @@ export default async function detailAnime(req: Request, res: Response) {
 
         const { data } = await axios.get(url, {
             headers: {
-                "User-Agent": "Mozilla/5.0",
-                Referer: "https://sankavollerei.com/"
+                "User-Agent": "Mozilla/5.0"
             }
         });
         res.json({
