@@ -40,6 +40,13 @@
                 "params": []
             },
             {
+                "name": "Mendapatkan jadwal rilis anime per hari",
+                "endpoint": "/api/anime/schedule",
+                "filename": "schedule",
+                "method": "GET",
+                "params": []
+            },
+            {
                 "name": "Mendapatkan detail lengkap sebuah anime",
                 "endpoint": "/api/anime/anime",
                 "filename": "anime",
