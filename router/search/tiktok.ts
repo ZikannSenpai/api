@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import axios from 'axios';
+import { Request, Response } from "express";
+import axios from "axios";
 
 export default async function tiktokSearchHandler(req: Request, res: Response) {
     const query = (req.query.q || req.query.query) as string;
@@ -16,17 +16,19 @@ export default async function tiktokSearchHandler(req: Request, res: Response) {
             method: "POST",
             url: "https://tikwm.com/api/feed/search",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                "Content-Type":
+                    "application/x-www-form-urlencoded; charset=UTF-8",
                 Cookie: "current_language=en",
-                "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
+                "User-Agent":
+                    "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36"
             },
             data: {
                 keywords: query,
                 count: 10,
                 cursor: 0,
-                HD: 1,
+                HD: 1
             },
-            timeout: 30000,
+            timeout: 30000
         });
 
         const videos = response.data.data.videos;
@@ -55,10 +57,10 @@ export default async function tiktokSearchHandler(req: Request, res: Response) {
         }));
 
         res.json({
-            status: true,
-            result: result
+            apiType: "Downloader",
+            ok: true,
+            data: result
         });
-
     } catch (error: any) {
         res.status(500).json({ status: false, message: error.message });
     }

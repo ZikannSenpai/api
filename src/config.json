@@ -162,6 +162,19 @@
                         "description": "TikTok URL"
                     }
                 ]
+            },
+            {
+                "name": "Youtube Downloader",
+                "endpoint": "/api/download/youtube",
+                "filename": "youtube",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "YouTube URL"
+                    }
+                ]
             }
         ],
         "search": [
