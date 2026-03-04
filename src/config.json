@@ -58,6 +58,12 @@
                         "description": "Slug"
                     }
                 ]
+            },
+            {
+                "name": "Scrape",
+                "endpoint": "/api/anime/otak",
+                "filename": "otaku",
+                "method": "GET"
             }
         ],
 

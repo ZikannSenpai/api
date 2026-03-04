@@ -1,0 +1,35 @@
+danzy {
+
+
+
+  maker = {
+    brat, txt
+    removebg, url
+  },
+  random = {
+    waifu
+    blue-archieve
+    neko
+    quotesanime
+    hsr
+  }
+  download = {
+    pinterest, url
+    facebook, url
+    instagram, url
+    spotify, url
+    github, url
+    nekopoi, url
+  }
+  search = {
+    yts, q
+    tiktok, q
+    spotify, q
+    lyrics, q
+    pinterest, q
+    play, q(play YT)
+    gimage, q
+  }
+}
+
+sanka = {}
