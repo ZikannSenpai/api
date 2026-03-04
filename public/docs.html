@@ -786,7 +786,10 @@
                 terminalLog(`[INFO] Starting Server Instance...`, "info");
                 await new Promise(r => setTimeout(r, 400));
                 terminalLog(`[INFO] Environment: Production`, "info");
-                terminalLog(`[INFO] Count Routers: ${config.tags.length}`, "info");
+                terminalLog(
+                    `[INFO] Count Routers: ${config.tags.length}`,
+                    "info"
+                );
                 terminalLog(`[DB] Connected to MongoDB Atlas`, "success");
                 await new Promise(r => setTimeout(r, 400));
 
