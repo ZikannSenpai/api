@@ -779,25 +779,25 @@
                 const commandText = "npm run dev";
                 for (let i = 0; i < commandText.length; i++) {
                     typeSpan.textContent += commandText.charAt(i);
-                    await new Promise(r => setTimeout(r, 80)); // Typing delay
+                    await new Promise(r => setTimeout(r, 100)); // Typing delay
                 }
                 // ---------------------------------
 
-                await new Promise(r => setTimeout(r, 600));
+                await new Promise(r => setTimeout(r, 1000));
 
                 const ver = config.settings.apiVersion || "1.0.0";
                 const tagleng = Object.values(config.tags).flat().length || "0";
                 terminalLog(`> zikaneko-api@${ver} dev`, "system");
                 terminalLog(`> ts-node src/index.ts`, "system");
-                await new Promise(r => setTimeout(r, 800));
+                await new Promise(r => setTimeout(r, 1000));
                 terminalLog(``, "system");
 
                 terminalLog(`[INFO] Starting Server Instance...`, "info");
-                await new Promise(r => setTimeout(r, 400));
+                await new Promise(r => setTimeout(r, 800));
                 terminalLog(`[INFO] Environment: Production`, "info");
                 terminalLog(`[INFO] Count Routers: ${tagleng}`, "info");
                 terminalLog(`[DB] Connected to MongoDB Atlas`, "success");
-                await new Promise(r => setTimeout(r, 400));
+                await new Promise(r => setTimeout(r, 1000));
 
                 const allRoutes = [];
                 for (const cat in config.tags) {
@@ -817,7 +817,7 @@
                         `[+] <span class="${methodColor}">${route.method}</span> ${route.endpoint} <span class="text-gray-500">✓</span>`,
                         "info"
                     );
-                    await new Promise(r => setTimeout(r, 20));
+                    await new Promise(r => setTimeout(r, 100));
                 }
 
                 await new Promise(r => setTimeout(r, 500));
