@@ -727,7 +727,7 @@
                 const statEp = document.getElementById("stat-endpoint");
                 if (!statEp) return;
 
-                const epLength = s.length;
+                const epLength = Object.values(s).flat().length;
                 if (statEp) statEp.innerText = epLength;
             }
             async function loadReminder() {
