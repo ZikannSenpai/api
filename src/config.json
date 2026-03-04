@@ -74,6 +74,19 @@
                         "description": "Text"
                     }
                 ]
+            },
+            {
+                "name": "Remove Background",
+                "endpoint": "/api/maker/removebg",
+                "filename": "removebg",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "URL"
+                    }
+                ]
             }
         ],
         "random": [
