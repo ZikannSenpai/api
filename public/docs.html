@@ -778,6 +778,7 @@
                 await new Promise(r => setTimeout(r, 600));
 
                 const ver = config.settings.apiVersion || "1.0.0";
+                const tagleng = config.tags.length || "0";
                 terminalLog(`> zikaneko-api@${ver} dev`, "system");
                 terminalLog(`> ts-node src/index.ts`, "system");
                 await new Promise(r => setTimeout(r, 800));
@@ -786,10 +787,7 @@
                 terminalLog(`[INFO] Starting Server Instance...`, "info");
                 await new Promise(r => setTimeout(r, 400));
                 terminalLog(`[INFO] Environment: Production`, "info");
-                terminalLog(
-                    `[INFO] Count Routers: ${config.tags.length}`,
-                    "info"
-                );
+                terminalLog(`[INFO] Count Routers: ${tagleng}`, "info");
                 terminalLog(`[DB] Connected to MongoDB Atlas`, "success");
                 await new Promise(r => setTimeout(r, 400));
 
