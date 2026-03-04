@@ -31,7 +31,7 @@
                 ]
             }
         ],
-        "anime": [
+        "otakudesu": [
             {
                 "name": "Mendapatkan data dari halaman utama",
                 "endpoint": "/api/anime/home",
@@ -58,12 +58,6 @@
                         "description": "Slug"
                     }
                 ]
-            },
-            {
-                "name": "Scrape",
-                "endpoint": "/api/anime/otak",
-                "filename": "otaku",
-                "method": "GET"
             }
         ],
 
