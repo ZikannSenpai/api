@@ -1,103 +1,130 @@
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener("DOMContentLoaded", init);
 let globalConfig = null;
 let toastTimeout;
 function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+    );
 }
 async function init() {
     if (isMobileDevice()) {
-        document.body.classList.add('is-mobile');
+        document.body.classList.add("is-mobile");
     }
-    if (document.getElementById('term-logs')) {
+    if (document.getElementById("term-logs")) {
         try {
-            const response = await fetch('/config');
+            const response = await fetch("/config");
             globalConfig = await response.json();
-            
+
             setUi(globalConfig);
             loadEnd(globalConfig.tags);
             startWIBClock();
+            startEp(globalConfig);
             await kuroneko(globalConfig);
-            loadReminder(); 
+            loadReminder();
             setSearch();
         } catch (e) {
-            document.getElementById('term-logs').innerHTML = `<span class="text-red-400 font-bold px-1">SYSTEM FAILURE</span><br>${e.message}`;
+            document.getElementById("term-logs").innerHTML =
+                `<span class="text-red-400 font-bold px-1">SYSTEM FAILURE</span><br>${e.message}`;
         }
     }
 }
-function showToast(msg, type = 'info') {
-    const toast = document.createElement('div');
-    toast.className = `fixed bottom-5 right-5 px-6 py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-white font-bold transform translate-y-10 opacity-0 transition-all duration-300 z-[100] flex items-center gap-3 font-mono text-sm ${type === 'error' ? 'bg-red-500' : 'bg-green-500'}`;
-    toast.innerHTML = `<i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation' : 'fa-check-circle'}"></i> ${msg.toUpperCase()}`;
+function showToast(msg, type = "info") {
+    const toast = document.createElement("div");
+    toast.className = `fixed bottom-5 right-5 px-6 py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-white font-bold transform translate-y-10 opacity-0 transition-all duration-300 z-[100] flex items-center gap-3 font-mono text-sm ${type === "error" ? "bg-red-500" : "bg-green-500"}`;
+    toast.innerHTML = `<i class="fa-solid ${type === "error" ? "fa-circle-exclamation" : "fa-check-circle"}"></i> ${msg.toUpperCase()}`;
     document.body.appendChild(toast);
-    requestAnimationFrame(() => toast.classList.remove('translate-y-10', 'opacity-0'));
+    requestAnimationFrame(() =>
+        toast.classList.remove("translate-y-10", "opacity-0")
+    );
     setTimeout(() => {
-        toast.classList.add('translate-y-10', 'opacity-0');
+        toast.classList.add("translate-y-10", "opacity-0");
         setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
 function startWIBClock() {
-    const timeEl = document.getElementById('server-time');
-    const dateEl = document.getElementById('server-date');
-    if(!timeEl) return;
+    const timeEl = document.getElementById("server-time");
+    const dateEl = document.getElementById("server-date");
+    if (!timeEl) return;
     updateTime();
     setInterval(updateTime, 1000);
     function updateTime() {
         const now = new Date();
-        const timeString = now.toLocaleTimeString('id-ID', {
-            timeZone: 'Asia/Jakarta',
-            hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'
+        const timeString = now.toLocaleTimeString("id-ID", {
+            timeZone: "Asia/Jakarta",
+            hour12: false,
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
         });
-        const dateString = now.toLocaleDateString('id-ID', {
-            timeZone: 'Asia/Jakarta',
-            day: 'numeric', month: 'long', year: 'numeric'
+        const dateString = now.toLocaleDateString("id-ID", {
+            timeZone: "Asia/Jakarta",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
         });
-        if(timeEl) timeEl.innerText = timeString;
-        if(dateEl) dateEl.innerText = dateString;
+        if (timeEl) timeEl.innerText = timeString;
+        if (dateEl) dateEl.innerText = dateString;
     }
+}
+
+async function startEp(config) {
+    const s = config.tags;
+    const statEp = document.getElementById("stat-endpoint");
+    if (!statEp) return;
+
+    const epLength = s.length;
+    if (statEp) statEp.innerText = epLength;
 }
 async function loadReminder() {
     try {
-        const req = await fetch('../src/reminder.json');
+        const req = await fetch("../src/reminder.json");
         const data = await req.json();
-        if(data?.message) {
-            const el = document.getElementById('running-text');
-            if(el) el.innerText = data.message.toUpperCase();
+        if (data?.message) {
+            const el = document.getElementById("running-text");
+            if (el) el.innerText = data.message.toUpperCase();
         }
-    } catch (e) { console.warn("No reminder config found"); }
+    } catch (e) {
+        console.warn("No reminder config found");
+    }
 }
 function messeg(msg) {
-    const toast = document.getElementById('custom-toast');
-    const msgBox = document.getElementById('toast-message');
-    if(!toast || !msgBox) return;
+    const toast = document.getElementById("custom-toast");
+    const msgBox = document.getElementById("toast-message");
+    if (!toast || !msgBox) return;
     msgBox.innerText = msg;
-    toast.classList.remove('translate-y-32', 'opacity-0');
+    toast.classList.remove("translate-y-32", "opacity-0");
     if (toastTimeout) clearTimeout(toastTimeout);
     toastTimeout = setTimeout(() => {
-        toast.classList.add('translate-y-32', 'opacity-0');
+        toast.classList.add("translate-y-32", "opacity-0");
     }, 3000);
 }
 
-function terminalLog(message, type = 'info') {
-    const logs = document.getElementById('term-logs');
-    if(!logs) return;
+function terminalLog(message, type = "info") {
+    const logs = document.getElementById("term-logs");
+    if (!logs) return;
 
-    const line = document.createElement('div');
-    const time = new Date().toLocaleTimeString('en-US', {hour12: false, hour: "2-digit", minute:"2-digit", second:"2-digit"});
-    
+    const line = document.createElement("div");
+    const time = new Date().toLocaleTimeString("en-US", {
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    });
+
     let prefix = `<span class="text-slate-500 font-bold">[${time}]</span>`;
-    
-    if (type === 'error') {
+
+    if (type === "error") {
         prefix += ` <span class="text-red-500 font-bold">ERR</span>`;
         line.className = "text-red-400";
-    } else if (type === 'success') {
+    } else if (type === "success") {
         prefix += ` <span class="text-green-500 font-bold">OK</span>`;
         line.className = "text-green-400";
-    } else if (type === 'warn') {
+    } else if (type === "warn") {
         prefix += ` <span class="text-yellow-500 font-bold">WARN</span>`;
         line.className = "text-yellow-400";
-    } else if (type === 'req-success') {
-        line.className = "text-green-400"; 
-    } else if (type === 'req-error') {
+    } else if (type === "req-success") {
+        line.className = "text-green-400";
+    } else if (type === "req-error") {
         line.className = "text-red-400";
     } else {
         prefix += ` <span class="text-blue-400 font-bold">INFO</span>`;
@@ -110,22 +137,23 @@ function terminalLog(message, type = 'info') {
 }
 
 async function kuroneko(config) {
-    const logs = document.getElementById('term-logs');
-    if(!logs) return;
-    
-    const cmdLine = document.createElement('div');
+    const logs = document.getElementById("term-logs");
+    if (!logs) return;
+
+    const cmdLine = document.createElement("div");
     cmdLine.className = "mb-2 break-all flex flex-wrap items-center";
-    
-    const prompt = document.createElement('span');
+
+    const prompt = document.createElement("span");
     prompt.className = "text-green-500 font-bold mr-2";
     prompt.innerHTML = "root@ziknyaw~$";
-    
-    const inputCmd = document.createElement('span');
+
+    const inputCmd = document.createElement("span");
     inputCmd.className = "text-gray-200 font-mono relative";
-    
-    const cursor = document.createElement('span');
-    cursor.className = "inline-block w-2.5 h-4 bg-green-500 align-middle ml-0.5 animate-pulse";
-    
+
+    const cursor = document.createElement("span");
+    cursor.className =
+        "inline-block w-2.5 h-4 bg-green-500 align-middle ml-0.5 animate-pulse";
+
     cmdLine.appendChild(prompt);
     cmdLine.appendChild(inputCmd);
     inputCmd.appendChild(cursor);
@@ -140,126 +168,132 @@ async function kuroneko(config) {
         const textNode = document.createTextNode(char);
         inputCmd.insertBefore(textNode, cursor);
     }
-    
+
     await new Promise(r => setTimeout(r, 500));
     cursor.remove();
-    
-    const printRaw = (text) => {
-        const div = document.createElement('div');
+
+    const printRaw = text => {
+        const div = document.createElement("div");
         div.className = "text-gray-400 text-xs font-mono ml-1";
         div.innerText = text;
         logs.appendChild(div);
         logs.scrollTop = logs.scrollHeight;
     };
 
-    const version = config.settings.apiVersion || '1.0.0';
-    printRaw(`\n> nekoapy@${version} dev`);
+    const version = config.settings.apiVersion || "1.0.0";
+    printRaw(`\n> zikapi@${version} dev`);
     await new Promise(r => setTimeout(r, 200));
     printRaw(`> node src/index.ts\n`);
     await new Promise(r => setTimeout(r, 400));
-    
+
     const endpoints = Object.values(config.tags).flat();
     const total = endpoints.length;
 
-    terminalLog(`Loading ${total} routes...`, 'info');
-    
+    terminalLog(`Loading ${total} routes...`, "info");
+
     let count = 0;
     const maxShow = 3;
     for (const route of endpoints) {
-        if(count < maxShow) {
-             terminalLog(`Mapped {${route.method}} ${route.endpoint}`, 'success');
-             await new Promise(r => setTimeout(r, 50));
+        if (count < maxShow) {
+            terminalLog(
+                `Mapped {${route.method}} ${route.endpoint}`,
+                "success"
+            );
+            await new Promise(r => setTimeout(r, 50));
         }
         count++;
     }
-    if(count > maxShow) terminalLog(`... +${count - maxShow} hidden endpoints mapped`, 'info');
+    if (count > maxShow)
+        terminalLog(`... +${count - maxShow} hidden endpoints mapped`, "info");
 
     await new Promise(r => setTimeout(r, 300));
-    
-    const serverUrl = window.location.origin;
-    terminalLog(`Server is running at ${serverUrl}`, 'success');
 
-    const inputLine = document.getElementById('term-input-line');
-    if(inputLine) inputLine.classList.remove('hidden');
-    
-    const container = document.getElementById('api-container');
-    if(container) container.classList.remove('opacity-0', 'translate-y-4');
+    const serverUrl = window.location.origin;
+    terminalLog(`Server is running at ${serverUrl}`, "success");
+
+    const inputLine = document.getElementById("term-input-line");
+    if (inputLine) inputLine.classList.remove("hidden");
+
+    const container = document.getElementById("api-container");
+    if (container) container.classList.remove("opacity-0", "translate-y-4");
 }
 
 function setUi(config) {
     const s = config.settings;
-    const navTitle = document.getElementById('nav-title');
-    const statVis = document.getElementById('stat-visitors');
-    
-    if(navTitle) navTitle.innerText = s.apiName || 'API';
-    if(statVis) statVis.innerText = s.visitors || '1';
-    
+    const navTitle = document.getElementById("nav-title");
+    const statVis = document.getElementById("stat-visitors");
+
+    if (navTitle) navTitle.innerText = s.apiName || "API";
+    if (statVis) statVis.innerText = s.visitors || "1";
+
     if (s.favicon) {
-        let link = document.querySelector("link[rel~='icon']") || document.createElement('link');
-        link.rel = 'icon';
+        let link =
+            document.querySelector("link[rel~='icon']") ||
+            document.createElement("link");
+        link.rel = "icon";
         link.href = s.favicon;
         document.head.appendChild(link);
     }
 }
 
 function setSearch() {
-    const input = document.getElementById('search-input');
-    const noResults = document.getElementById('no-results');
-    if(!input) return;
+    const input = document.getElementById("search-input");
+    const noResults = document.getElementById("no-results");
+    if (!input) return;
 
-    input.addEventListener('input', (e) => {
+    input.addEventListener("input", e => {
         const val = e.target.value.toLowerCase();
         const isSearching = val.length > 0;
         let anyVisible = false;
 
-        document.querySelectorAll('.api-section').forEach(section => {
-            const grid = section.querySelector('.api-section-grid');
-            const arrow = section.querySelector('.cat-arrow');
+        document.querySelectorAll(".api-section").forEach(section => {
+            const grid = section.querySelector(".api-section-grid");
+            const arrow = section.querySelector(".cat-arrow");
             let matchInThisSection = 0;
 
-            section.querySelectorAll('.api-card-wrapper').forEach(card => {
-                const txt = card.getAttribute('data-search').toLowerCase();
+            section.querySelectorAll(".api-card-wrapper").forEach(card => {
+                const txt = card.getAttribute("data-search").toLowerCase();
                 if (txt.includes(val)) {
-                    card.classList.remove('hidden');
+                    card.classList.remove("hidden");
                     matchInThisSection++;
                 } else {
-                    card.classList.add('hidden');
+                    card.classList.add("hidden");
                 }
             });
 
             if (matchInThisSection > 0) {
-                section.classList.remove('hidden');
+                section.classList.remove("hidden");
                 anyVisible = true;
                 if (isSearching) {
-                    grid.classList.remove('hidden');
-                    arrow.classList.add('rotate-180');
+                    grid.classList.remove("hidden");
+                    arrow.classList.add("rotate-180");
                 } else {
-                    grid.classList.add('hidden');
-                    arrow.classList.remove('rotate-180');
+                    grid.classList.add("hidden");
+                    arrow.classList.remove("rotate-180");
                 }
             } else {
-                section.classList.add('hidden');
+                section.classList.add("hidden");
             }
         });
 
-        if(noResults) {
-            noResults.classList.toggle('hidden', anyVisible);
-            noResults.classList.toggle('flex', !anyVisible);
+        if (noResults) {
+            noResults.classList.toggle("hidden", anyVisible);
+            noResults.classList.toggle("flex", !anyVisible);
         }
     });
 }
 
 function loadEnd(tags) {
-    const container = document.getElementById('api-container');
-    if(!container) return;
-    
-    container.innerHTML = '';
+    const container = document.getElementById("api-container");
+    if (!container) return;
+
+    container.innerHTML = "";
 
     for (const [cat, routes] of Object.entries(tags)) {
-        const section = document.createElement('div');
+        const section = document.createElement("div");
         section.className = "api-section w-full";
-        
-        const catId = `cat-${cat.replace(/\s+/g, '-')}`;
+
+        const catId = `cat-${cat.replace(/\s+/g, "-")}`;
 
         const headerBtn = `
             <button id="btn-${catId}" onclick="toggleCategory('${catId}')" class="category-btn w-full flex items-center justify-between bg-white text-slate-700 p-4 rounded-lg shadow-sm border border-slate-300 mb-4 group hover:bg-slate-50 active:scale-[0.99] transition-all duration-150">
@@ -274,33 +308,38 @@ function loadEnd(tags) {
             </button>
         `;
 
-        const grid = document.createElement('div');
+        const grid = document.createElement("div");
         grid.id = `grid-${catId}`;
-        grid.className = 'api-section-grid grid grid-cols-1 gap-4 hidden mb-8'; 
+        grid.className = "api-section-grid grid grid-cols-1 gap-4 hidden mb-8";
 
         routes.forEach((route, idx) => {
-            const id = `${cat}-${idx}`.replace(/\s+/g, '-');
+            const id = `${cat}-${idx}`.replace(/\s+/g, "-");
             const searchTerms = `${route.name} ${route.endpoint} ${cat}`;
-            
-            let inputsHtml = '';
+
+            let inputsHtml = "";
             if (route.params?.length) {
-                inputsHtml = `<div class="bg-gray-50 p-4 border-t border-slate-200 grid gap-3">` + 
-                route.params.map(p => 
-                    `<div class="relative">
+                inputsHtml =
+                    `<div class="bg-gray-50 p-4 border-t border-slate-200 grid gap-3">` +
+                    route.params
+                        .map(
+                            p =>
+                                `<div class="relative">
                         <div class="flex justify-between items-center mb-1">
                             <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
                                 <span class="w-1.5 h-1.5 bg-slate-400 rounded-full inline-block"></span> ${p.name.toUpperCase()}
                             </label>
-                            <span class="text-[9px] font-bold ${p.required ? 'text-red-500' : 'text-slate-400'}">${p.required ? 'REQ' : 'OPT'}</span>
+                            <span class="text-[9px] font-bold ${p.required ? "text-red-500" : "text-slate-400"}">${p.required ? "REQ" : "OPT"}</span>
                         </div>
-                        <input type="text" id="input-${id}-${p.name}" placeholder="${p.description || 'Value...'}" 
+                        <input type="text" id="input-${id}-${p.name}" placeholder="${p.description || "Value..."}" 
                         class="w-full border border-slate-300 p-2 font-mono text-xs focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none transition-colors rounded-md bg-white">
                      </div>`
-                ).join('') + `</div>`;
+                        )
+                        .join("") +
+                    `</div>`;
             }
 
-            let uploadHtml = '';
-            if (route.method === 'POST' || route.method.includes('POST')) {
+            let uploadHtml = "";
+            if (route.method === "POST" || route.method.includes("POST")) {
                 uploadHtml = `
                     <div class="mt-2 w-full">
                         <input type="file" id="file-${id}" class="hidden" onchange="updateFileLabel('${id}')">
@@ -312,14 +351,20 @@ function loadEnd(tags) {
                 `;
             }
 
-            const methodColor = route.method === 'GET' ? 'bg-sky-500' : 
-                               route.method === 'POST' ? 'bg-emerald-500' :
-                               route.method === 'DELETE' ? 'bg-rose-500' : 'bg-amber-500';
-            
-            const card = document.createElement('div');
-            card.className = 'api-card-wrapper w-full bg-white border border-slate-300 rounded-lg hover:border-blue-400 transition-colors shadow-sm overflow-hidden';
-            card.setAttribute('data-search', searchTerms);
-            
+            const methodColor =
+                route.method === "GET"
+                    ? "bg-sky-500"
+                    : route.method === "POST"
+                      ? "bg-emerald-500"
+                      : route.method === "DELETE"
+                        ? "bg-rose-500"
+                        : "bg-amber-500";
+
+            const card = document.createElement("div");
+            card.className =
+                "api-card-wrapper w-full bg-white border border-slate-300 rounded-lg hover:border-blue-400 transition-colors shadow-sm overflow-hidden";
+            card.setAttribute("data-search", searchTerms);
+
             card.innerHTML = `
                 <div class="p-3 cursor-pointer select-none hover:bg-slate-50 transition-colors" onclick="toggle('${id}')">
                     <div class="flex justify-between items-center gap-3">
@@ -374,81 +419,83 @@ function loadEnd(tags) {
     }
 }
 
-window.updateFileLabel = (id) => {
+window.updateFileLabel = id => {
     const input = document.getElementById(`file-${id}`);
     const label = document.getElementById(`file-label-${id}`);
     if (input && input.files && input.files[0]) {
         label.innerText = `(${input.files[0].name})`;
-        label.classList.remove('hidden');
+        label.classList.remove("hidden");
     } else {
-        label.classList.add('hidden');
+        label.classList.add("hidden");
     }
 };
 
-window.toggleCategory = (catId) => {
+window.toggleCategory = catId => {
     const grid = document.getElementById(`grid-${catId}`);
     const arrow = document.getElementById(`arrow-${catId}`);
     const btn = document.getElementById(`btn-${catId}`);
-    
-    if(btn) {
-        btn.classList.add('animating');
+
+    if (btn) {
+        btn.classList.add("animating");
         setTimeout(() => {
-            btn.classList.remove('animating');
+            btn.classList.remove("animating");
         }, 500);
     }
 
-    if(grid.classList.contains('hidden')) {
-        grid.classList.remove('hidden');
-        arrow.classList.add('rotate-180');
+    if (grid.classList.contains("hidden")) {
+        grid.classList.remove("hidden");
+        arrow.classList.add("rotate-180");
     } else {
-        grid.classList.add('hidden');
-        arrow.classList.remove('rotate-180');
+        grid.classList.add("hidden");
+        arrow.classList.remove("rotate-180");
     }
 };
 
-window.toggle = (id) => {
+window.toggle = id => {
     const b = document.getElementById(`body-${id}`);
     const i = document.getElementById(`icon-${id}`);
-    
-    if (b.classList.contains('hidden')) {
-        b.classList.remove('hidden');
-        i.classList.add('rotate-45'); 
+
+    if (b.classList.contains("hidden")) {
+        b.classList.remove("hidden");
+        i.classList.add("rotate-45");
     } else {
-        b.classList.add('hidden');
-        i.classList.remove('rotate-45');
+        b.classList.add("hidden");
+        i.classList.remove("rotate-45");
     }
 };
 
-window.copy = (txt) => {
+window.copy = txt => {
     navigator.clipboard.writeText(window.location.origin + txt);
     messeg("ENDPOINT COPIED");
     terminalLog(`Copied URL: ${txt}`);
 };
 
-window.copyRes = (id) => {
+window.copyRes = id => {
     const out = document.getElementById(`output-${id}`);
     if (!out.innerText) return;
     navigator.clipboard.writeText(out.innerText);
     messeg("RESPONSE COPIED");
 };
 
-window.reset = (id) => {
-    document.getElementById(`res-area-${id}`).classList.add('hidden');
-    document.getElementById(`output-${id}`).innerHTML = '';
+window.reset = id => {
+    document.getElementById(`res-area-${id}`).classList.add("hidden");
+    document.getElementById(`output-${id}`).innerHTML = "";
     const dlBtn = document.getElementById(`dl-btn-${id}`);
-    if(dlBtn) dlBtn.classList.add('hidden');
-    
-    document.querySelectorAll(`[id^="input-${id}-"]`).forEach(i => i.value = '');
-    
+    if (dlBtn) dlBtn.classList.add("hidden");
+
+    document
+        .querySelectorAll(`[id^="input-${id}-"]`)
+        .forEach(i => (i.value = ""));
+
     const fileInput = document.getElementById(`file-${id}`);
     const fileLabel = document.getElementById(`file-label-${id}`);
-    if(fileInput) fileInput.value = '';
-    if(fileLabel) {
-        fileLabel.innerText = '';
-        fileLabel.classList.add('hidden');
+    if (fileInput) fileInput.value = "";
+    if (fileLabel) {
+        fileLabel.innerText = "";
+        fileLabel.classList.add("hidden");
     }
 
-    terminalLog(`Console cleared for req-${id.split('-').pop()}`);
+    terminalLog(`Console cleared for req-${id.split("-").pop()}`);
 };
 
 window.testReq = async (btn, url, method, id) => {
@@ -463,78 +510,94 @@ window.testReq = async (btn, url, method, id) => {
     const originalBtnText = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i>`;
-    btn.classList.add('opacity-70', 'cursor-not-allowed');
-    
+    btn.classList.add("opacity-70", "cursor-not-allowed");
+
     let startTime = Date.now();
     let timerInterval = setInterval(() => {
         const elapsed = Date.now() - startTime;
         time.innerText = `${elapsed}ms`;
     }, 75);
-    
-    document.getElementById(`res-area-${id}`).classList.remove('hidden');
-    
-    if(dlBtn) {
-        dlBtn.classList.add('hidden');
-        dlBtn.href = '#';
-    }
-    
-    status.innerText = 'PROCESSING...';
-    status.className = 'text-yellow-400 font-bold font-mono';
-    statusDot.className = 'w-2 h-2 rounded-full bg-yellow-400 animate-pulse';
 
-    out.innerHTML = '<span class="text-gray-500 italic">establishing connection...</span>';
-    
+    document.getElementById(`res-area-${id}`).classList.remove("hidden");
+
+    if (dlBtn) {
+        dlBtn.classList.add("hidden");
+        dlBtn.href = "#";
+    }
+
+    status.innerText = "PROCESSING...";
+    status.className = "text-yellow-400 font-bold font-mono";
+    statusDot.className = "w-2 h-2 rounded-full bg-yellow-400 animate-pulse";
+
+    out.innerHTML =
+        '<span class="text-gray-500 italic">establishing connection...</span>';
+
     const params = {};
     document.querySelectorAll(`[id^="input-${id}-"]`).forEach(i => {
-        if(i.value) params[i.id.split(`input-${id}-`)[1]] = i.value;
+        if (i.value) params[i.id.split(`input-${id}-`)[1]] = i.value;
     });
 
-    let fetchUrl = url + (method === 'GET' && Object.keys(params).length ? '?' + new URLSearchParams(params) : '');
-    
+    let fetchUrl =
+        url +
+        (method === "GET" && Object.keys(params).length
+            ? "?" + new URLSearchParams(params)
+            : "");
+
     let opts = { method };
 
-    if (method !== 'GET') {
+    if (method !== "GET") {
         if (hasFile) {
             const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
-            Object.keys(params).forEach(key => formData.append(key, params[key]));
+            formData.append("file", fileInput.files[0]);
+            Object.keys(params).forEach(key =>
+                formData.append(key, params[key])
+            );
             opts.body = formData;
         } else {
-            opts.headers = {'Content-Type': 'application/json'};
+            opts.headers = { "Content-Type": "application/json" };
             opts.body = JSON.stringify(params);
         }
     }
 
-    const fullUrl = fetchUrl.startsWith('http') ? fetchUrl : window.location.origin + fetchUrl;
+    const fullUrl = fetchUrl.startsWith("http")
+        ? fetchUrl
+        : window.location.origin + fetchUrl;
 
     try {
         const req = await fetch(fetchUrl, opts);
         clearInterval(timerInterval);
-        const duration = (Date.now() - startTime); 
+        const duration = Date.now() - startTime;
         status.innerText = `${req.status} ${req.statusText}`;
-        status.className = req.ok ? 'text-green-400 font-bold font-mono' : 'text-red-400 font-bold font-mono';
-        statusDot.className = req.ok ? 'w-2 h-2 rounded-full bg-green-400' : 'w-2 h-2 rounded-full bg-red-400';
+        status.className = req.ok
+            ? "text-green-400 font-bold font-mono"
+            : "text-red-400 font-bold font-mono";
+        statusDot.className = req.ok
+            ? "w-2 h-2 rounded-full bg-green-400"
+            : "w-2 h-2 rounded-full bg-red-400";
         time.innerText = `${duration}ms`;
-        terminalLog(`[${req.status}] ${method} ${fullUrl} (${duration}ms)`, req.ok ? 'req-success' : 'req-error');
-        const type = req.headers.get('content-type');
-        if (type?.includes('json')) {
+        terminalLog(
+            `[${req.status}] ${method} ${fullUrl} (${duration}ms)`,
+            req.ok ? "req-success" : "req-error"
+        );
+        const type = req.headers.get("content-type");
+        if (type?.includes("json")) {
             const json = await req.json();
             out.innerHTML = syntaxHighlight(json);
-        } else if (type?.startsWith('image')) {
+        } else if (type?.startsWith("image")) {
             const blob = await req.blob();
             const urlObj = URL.createObjectURL(blob);
-            if(dlBtn) {
+            if (dlBtn) {
                 dlBtn.href = urlObj;
                 dlBtn.download = `img-${Date.now()}.jpg`;
-                dlBtn.classList.remove('hidden');
+                dlBtn.classList.remove("hidden");
             }
             out.innerHTML = `
                 <div class="border border-dashed border-gray-600 p-4 bg-black/20 rounded-lg flex justify-center">
                     <img src="${urlObj}" class="max-w-full shadow-lg max-h-[400px] rounded border border-gray-700">
                 </div>`;
-        } else if (type?.includes('audio') || type?.includes('video')) {
+        } else if (type?.includes("audio") || type?.includes("video")) {
             const blob = await req.blob();
-            const tag = type.includes('audio') ? 'audio' : 'video';
+            const tag = type.includes("audio") ? "audio" : "video";
             out.innerHTML = `<${tag} controls src="${URL.createObjectURL(blob)}" class="w-full mt-2 rounded border border-slate-700"></${tag}>`;
         } else {
             out.innerText = await req.text();
@@ -542,29 +605,35 @@ window.testReq = async (btn, url, method, id) => {
     } catch (err) {
         clearInterval(timerInterval);
         out.innerHTML = `<span class="text-red-400 font-bold">CONNECTION_REFUSED</span><br><span class="text-gray-500">${err.message}</span>`;
-        status.innerText = 'ERR';
-        statusDot.className = 'w-2 h-2 rounded-full bg-red-500';
-        status.className = 'text-red-400 font-bold font-mono';
-        terminalLog(`Fetch Failed: ${err.message}`, 'error');
+        status.innerText = "ERR";
+        statusDot.className = "w-2 h-2 rounded-full bg-red-500";
+        status.className = "text-red-400 font-bold font-mono";
+        terminalLog(`Fetch Failed: ${err.message}`, "error");
     } finally {
         btn.disabled = false;
         btn.innerHTML = originalBtnText;
-        btn.classList.remove('opacity-70', 'cursor-not-allowed');
+        btn.classList.remove("opacity-70", "cursor-not-allowed");
     }
 };
 function syntaxHighlight(json) {
-    if (typeof json != 'string') json = JSON.stringify(json, undefined, 2);
-    return json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-        let cls = 'json-number';
-        if (/^"/.test(match)) {
-            if (/:$/.test(match)) cls = 'json-key';
-            else cls = 'json-string';
-        } else if (/true|false/.test(match)) {
-            cls = 'json-boolean';
-        } else if (/null/.test(match)) {
-            cls = 'json-null';
-        }
-        return `<span class="${cls}">${match}</span>`;
-    });
+    if (typeof json != "string") json = JSON.stringify(json, undefined, 2);
+    return json
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(
+            /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+            function (match) {
+                let cls = "json-number";
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) cls = "json-key";
+                    else cls = "json-string";
+                } else if (/true|false/.test(match)) {
+                    cls = "json-boolean";
+                } else if (/null/.test(match)) {
+                    cls = "json-null";
+                }
+                return `<span class="${cls}">${match}</span>`;
+            }
+        );
 }
