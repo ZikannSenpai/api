@@ -615,6 +615,7 @@
                         setUi(globalConfig);
                         loadEnd(globalConfig.tags);
                         startWIBClock();
+                        startEp(globalConfig);
                         await kuroneko(globalConfig);
                         loadReminder();
                         setSearch();
@@ -721,7 +722,14 @@
                         });
                 }
             }
+            function startEp(config) {
+                const s = config.tags;
+                const statEp = document.getElementById("stat-endpoint");
+                if (!statEp) return;
 
+                const epLength = s.length;
+                if (statEp) statEp.innerText = epLength;
+            }
             async function loadReminder() {
                 try {
                     const req = await fetch("../src/reminder.json");
@@ -778,7 +786,7 @@
                 await new Promise(r => setTimeout(r, 600));
 
                 const ver = config.settings.apiVersion || "1.0.0";
-                const tagleng = config.tags.length || "0";
+                const tagleng = Object.values(config.tags).flat().length || "0";
                 terminalLog(`> zikaneko-api@${ver} dev`, "system");
                 terminalLog(`> ts-node src/index.ts`, "system");
                 await new Promise(r => setTimeout(r, 800));
