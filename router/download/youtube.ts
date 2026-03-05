@@ -16,8 +16,13 @@ export default async function detailAnime(req: Request, res: Response) {
 
         const { data } = await axios.get(url, {
             headers: {
-                "User-Agent": "Mozilla/5.0"
-            }
+                "User-Agent":
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+                Accept: "application/json, text/plain, */*",
+                Referer: "https://api.danzy.web.id/",
+                Connection: "keep-alive"
+            },
+            timeout: 30000
         });
         res.json({
             apiType: "Downloader",
