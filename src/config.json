@@ -61,110 +61,6 @@
                 ]
             }
         ],
-
-        "maker": [
-            {
-                "name": "Brat Generator",
-                "endpoint": "/api/maker/brat",
-                "filename": "brat",
-                "method": "GET",
-                "params": [
-                    {
-                        "name": "text",
-                        "required": true,
-                        "description": "Text"
-                    }
-                ]
-            },
-            {
-                "name": "Remove Background",
-                "endpoint": "/api/maker/removebg",
-                "filename": "removebg",
-                "method": "GET",
-                "params": [
-                    {
-                        "name": "url",
-                        "required": true,
-                        "description": "Image URL"
-                    }
-                ]
-            }
-        ],
-        "random": [
-            {
-                "name": "Waifu",
-                "endpoint": "/api/random/waifu",
-                "filename": "waifu",
-                "method": "GET",
-                "params": []
-            },
-            {
-                "name": "Neko",
-                "endpoint": "/api/random/neko",
-                "filename": "neko",
-                "method": "GET",
-                "params": []
-            },
-            {
-                "name": "Blue Archive",
-                "endpoint": "/api/random/blue-archive",
-                "filename": "ba",
-                "method": "GET",
-                "params": []
-            },
-            {
-                "name": "Quotes Anime",
-                "endpoint": "/api/random/quotesanime",
-                "filename": "quotes",
-                "method": "GET",
-                "params": []
-            },
-            {
-                "name": "Honkai Star Rail",
-                "endpoint": "/api/random/hsr",
-                "filename": "hsr",
-                "method": "GET",
-                "params": []
-            }
-        ],
-        "tools": [
-            {
-                "name": "Screenshot Web",
-                "endpoint": "/api/tools/ssweb",
-                "filename": "ssweb",
-                "method": "GET",
-                "params": [
-                    {
-                        "name": "url",
-                        "required": true,
-                        "description": "Website URL"
-                    },
-                    {
-                        "name": "type",
-                        "required": false,
-                        "description": "mobile | desktop"
-                    }
-                ]
-            },
-            {
-                "name": "Short URL",
-                "endpoint": "/api/tools/shorturl",
-                "filename": "shorturl",
-                "method": "GET",
-                "params": [
-                    {
-                        "name": "url",
-                        "required": true,
-                        "description": "Original URL"
-                    },
-                    {
-                        "name": "alias",
-                        "required": false,
-                        "description": "Custom Alias"
-                    }
-                ]
-            }
-        ],
         "download": [
             {
                 "name": "Nekopoi Downloader",
@@ -271,6 +167,71 @@
                 ]
             }
         ],
+        "maker": [
+            {
+                "name": "Brat Generator",
+                "endpoint": "/api/maker/brat",
+                "filename": "brat",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "text",
+                        "required": true,
+                        "description": "Text"
+                    }
+                ]
+            },
+            {
+                "name": "Remove Background",
+                "endpoint": "/api/maker/removebg",
+                "filename": "removebg",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "Image URL"
+                    }
+                ]
+            }
+        ],
+        "random": [
+            {
+                "name": "Waifu",
+                "endpoint": "/api/random/waifu",
+                "filename": "waifu",
+                "method": "GET",
+                "params": []
+            },
+            {
+                "name": "Neko",
+                "endpoint": "/api/random/neko",
+                "filename": "neko",
+                "method": "GET",
+                "params": []
+            },
+            {
+                "name": "Blue Archive",
+                "endpoint": "/api/random/blue-archive",
+                "filename": "ba",
+                "method": "GET",
+                "params": []
+            },
+            {
+                "name": "Quotes Anime",
+                "endpoint": "/api/random/quotesanime",
+                "filename": "quotes",
+                "method": "GET",
+                "params": []
+            },
+            {
+                "name": "Honkai Star Rail",
+                "endpoint": "/api/random/hsr",
+                "filename": "hsr",
+                "method": "GET",
+                "params": []
+            }
+        ],
         "search": [
             {
                 "name": "Youtube Search",
@@ -308,6 +269,44 @@
                         "name": "q",
                         "required": true,
                         "description": "Query"
+                    }
+                ]
+            }
+        ],
+        "tools": [
+            {
+                "name": "Screenshot Web",
+                "endpoint": "/api/tools/ssweb",
+                "filename": "ssweb",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "Website URL"
+                    },
+                    {
+                        "name": "type",
+                        "required": false,
+                        "description": "mobile | desktop"
+                    }
+                ]
+            },
+            {
+                "name": "Short URL",
+                "endpoint": "/api/tools/shorturl",
+                "filename": "shorturl",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "Original URL"
+                    },
+                    {
+                        "name": "alias",
+                        "required": false,
+                        "description": "Custom Alias"
                     }
                 ]
             }
