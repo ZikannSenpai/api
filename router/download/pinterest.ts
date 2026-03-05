@@ -28,7 +28,7 @@ export default async function pinterest(req: Request, res: Response) {
             apiType: "Downloader",
             ok: true,
             message: "Success",
-            data: data.data
+            data: data.result
         });
     } catch (err: any) {
         res.status(500).json({
