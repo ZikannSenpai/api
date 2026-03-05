@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import axios from "axios";
 
 export default async function removeBG(req: Request, res: Response) {
-    const { url } = req.url;
+    const { url } = req.query.url || req.body.url;
 
     if (!url) {
         return res.status(400).json({
