@@ -21,8 +21,7 @@ export default async function pinterest(req: Request, res: Response) {
                 Accept: "application/json, text/plain, */*",
                 Referer: "https://api.danzy.web.id/",
                 Connection: "keep-alive"
-            },
-            timeout: 30000
+            }
         });
         res.json({
             apiType: "Downloader",
