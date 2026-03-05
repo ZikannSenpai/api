@@ -8,7 +8,7 @@ danzy {
   },
   random = {
     waifu
-    blue-archieve
+    blue-archive
     neko
     quotesanime
     hsr
