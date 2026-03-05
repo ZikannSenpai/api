@@ -4,7 +4,7 @@
         "apiName": "ZikaNeko",
         "description": "A free and reliable API service designed for modern application development. Built with Node.js and TypeScript, delivering fast performance, stable endpoints, and easy integration.",
         "apiVersion": "v1.0",
-        "visitors": "0",
+        "visitors": "2939",
         "endpoint": "0",
         "favicon": "/src/danzz.jpg",
         "thumbnail": "/src/thumbnail.jpg",
@@ -32,7 +32,7 @@
                 ]
             }
         ],
-        "otakudesu": [
+        "anime": [
             {
                 "name": "Mendapatkan data dari halaman utama",
                 "endpoint": "/api/anime/home",
