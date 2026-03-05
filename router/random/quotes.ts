@@ -5,17 +5,12 @@ export default async function quotesAnime(req: Request, res: Response) {
     try {
         const url = `https://api.danzy.web.id/api/random/quotesanime`;
 
-        const { data } = await axios.get(url, {
-            headers: {
-                "User-Agent": "Mozilla/5.0",
-                Referer: "https://api.danzy.web.id/"
-            }
-        });
+        const data = await axios.get(url);
 
         res.json({
             apiType: "Otakudesu",
             ok: true,
-            data: data.data.result
+            data: data.data
         });
     } catch (err: any) {
         res.status(500).json({
