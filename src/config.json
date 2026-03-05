@@ -99,6 +99,13 @@
                 "params": []
             },
             {
+                "name": "Random Neko",
+                "endpoint": "/api/random/neko",
+                "filename": "neko",
+                "method": "GET",
+                "params": []
+            },
+            {
                 "name": "Random Blue-Archive",
                 "endpoint": "/api/random/blue-archive",
                 "filename": "ba",
