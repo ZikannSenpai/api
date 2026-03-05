@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
 
-export default async function removeBG(req: Request, res: Response) {
+export default async function randomBa(req: Request, res: Response) {
     try {
         const api = `https://api.danzy.web.id/api/random/blue-archive`;
 
