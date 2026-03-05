@@ -118,6 +118,13 @@
                 "filename": "quotes",
                 "method": "GET",
                 "params": []
+            },
+            {
+                "name": "Random Honkai",
+                "endpoint": "/api/random/hsr",
+                "filename": "hsr",
+                "method": "GET",
+                "params": []
             }
         ],
         "tools": [
