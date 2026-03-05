@@ -3,18 +3,23 @@ import axios from "axios";
 
 export default async function quotesAnime(req: Request, res: Response) {
     try {
-        const url = `https://api.danzy.web.id/api/random/quotesanime`;
+        const url = "https://api.danzy.web.id/api/random/quotesanime";
 
-        const data = await axios.get(url, {
-            "User-Agent":
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
-            Referer: "https://api.danzy.web.id/"
+        const { data } = await axios.get(url, {
+            headers: {
+                "User-Agent":
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+                Accept: "application/json, text/plain, */*",
+                Referer: "https://api.danzy.web.id/",
+                Connection: "keep-alive"
+            },
+            timeout: 30000
         });
 
         res.json({
             apiType: "Otakudesu",
             ok: true,
-            data: data.data
+            data: data
         });
     } catch (err: any) {
         res.status(500).json({
