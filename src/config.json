@@ -111,6 +111,13 @@
                 "filename": "ba",
                 "method": "GET",
                 "params": []
+            },
+            {
+                "name": "Random Quotes",
+                "endpoint": "/api/random/quotesanime",
+                "filename": "quotes",
+                "method": "GET",
+                "params": []
             }
         ],
         "tools": [
