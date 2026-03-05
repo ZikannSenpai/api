@@ -16,7 +16,7 @@ export default async function removeBG(req: Request, res: Response) {
             "Content-Type",
             response.headers["content-type"] || "image/png"
         );
-        res.send(response.data);
+        res.send(response);
     } catch (err: any) {
         res.status(500).json({
             status: false,
