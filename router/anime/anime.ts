@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import axios from "axios";
 
 export default async function detailAnime(req: Request, res: Response) {
-    const { slug } = req.query;
+    const slug = (req.body.query || req.query.query) as string;
 
     if (!slug) {
         return res.status(400).json({

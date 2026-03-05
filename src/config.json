@@ -271,6 +271,19 @@
                         "description": "Query"
                     }
                 ]
+            },
+            {
+                "name": "Spotify Search",
+                "endpoint": "/api/search/spotify",
+                "filename": "spotify",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "q",
+                        "required": true,
+                        "description": "Query"
+                    }
+                ]
             }
         ],
         "tools": [
