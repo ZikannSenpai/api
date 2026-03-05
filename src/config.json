@@ -167,6 +167,32 @@
         ],
         "download": [
             {
+                "name": "Nekopoi Downloader",
+                "endpoint": "/api/download/nekopoi",
+                "filename": "nekopoi",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "Nekopoi URL"
+                    }
+                ]
+            },
+            {
+                "name": "Github Downloader",
+                "endpoint": "/api/download/github",
+                "filename": "github",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "Github URL"
+                    }
+                ]
+            },
+            {
                 "name": "Spotify Downloader",
                 "endpoint": "/api/download/spotify",
                 "filename": "spotify",
