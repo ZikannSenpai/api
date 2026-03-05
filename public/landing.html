@@ -27,12 +27,7 @@
         />
         <link rel="apple-touch-icon" href="favico/apple-touch-icon.png" />
 
-        <link
-            id="favicon"
-            rel="icon"
-            type="image/png"
-            href="../src/zikk.png"
-        />
+        <link id="favicon" rel="icon" type="image/png" href="../src/zikk.png" />
 
         <script src="https://cdn.tailwindcss.com"></script>
         <link
@@ -532,6 +527,64 @@
                 </div>
             </div>
         </div>
+        <!-- POPUP -->
+        <div
+            id="welcomePopup"
+            class="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+        >
+            <div
+                class="relative w-[90%] max-w-md bg-white border border-slate-200 rounded-xl shadow-hard p-6 animate-fade-up"
+            >
+                <!-- close -->
+                <button
+                    id="closePopup"
+                    class="hidden absolute top-3 right-3 text-slate-500 hover:text-slate-900 text-xl"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <!-- content -->
+                <h2 class="font-display text-xl text-slate-800 mb-2">
+                    Halo Selamat datang di Dokumentasi API ZikaNeko!
+                </h2>
+
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Layanan API gratis dan andal yang dirancang untuk
+                    pengembangan aplikasi modern. Dibangun dengan Node.js dan
+                    TypeScript, memberikan performa cepat, endpoint yang stabil,
+                    dan integrasi yang mudah.
+                </p>
+
+                <!-- countdown -->
+                <div class="mt-4 text-xs text-slate-400">
+                    tombol tutup muncul dalam
+                    <span id="countdown">3</span> detik
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const popup = document.getElementById("welcomePopup");
+            const closeBtn = document.getElementById("closePopup");
+            const countdown = document.getElementById("countdown");
+
+            let time = 3;
+
+            const timer = setInterval(() => {
+                time--;
+                countdown.textContent = time;
+
+                if (time <= 0) {
+                    clearInterval(timer);
+                    closeBtn.classList.remove("hidden");
+                    countdown.parentElement.style.display = "none";
+                }
+            }, 1000);
+
+            closeBtn.onclick = () => {
+                popup.style.display = "none";
+            };
+        </script>
 
         <script>
             const minLoadTime = 800;
