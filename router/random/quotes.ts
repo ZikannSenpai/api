@@ -17,7 +17,7 @@ export default async function quotesAnime(req: Request, res: Response) {
         });
 
         res.json({
-            apiType: "Otakudesu",
+            source: "Otakudesu",
             ok: true,
             data: data.result
         });
