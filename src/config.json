@@ -92,35 +92,35 @@
         ],
         "random": [
             {
-                "name": "Random Waifu",
+                "name": "Waifu",
                 "endpoint": "/api/random/waifu",
                 "filename": "waifu",
                 "method": "GET",
                 "params": []
             },
             {
-                "name": "Random Neko",
+                "name": "Neko",
                 "endpoint": "/api/random/neko",
                 "filename": "neko",
                 "method": "GET",
                 "params": []
             },
             {
-                "name": "Random Blue-Archive",
+                "name": "Blue Archive",
                 "endpoint": "/api/random/blue-archive",
                 "filename": "ba",
                 "method": "GET",
                 "params": []
             },
             {
-                "name": "Random Quotes",
+                "name": "Quotes Anime",
                 "endpoint": "/api/random/quotesanime",
                 "filename": "quotes",
                 "method": "GET",
                 "params": []
             },
             {
-                "name": "Random Honkai",
+                "name": "Honkai Star Rail",
                 "endpoint": "/api/random/hsr",
                 "filename": "hsr",
                 "method": "GET",

@@ -19,7 +19,7 @@ export default async function quotesAnime(req: Request, res: Response) {
         res.json({
             apiType: "Otakudesu",
             ok: true,
-            data: data
+            data: data.result
         });
     } catch (err: any) {
         res.status(500).json({
