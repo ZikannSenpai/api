@@ -167,6 +167,19 @@
         ],
         "download": [
             {
+                "name": "Spotify Downloader",
+                "endpoint": "/api/download/spotify",
+                "filename": "spotify",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "Spotify URL"
+                    }
+                ]
+            },
+            {
                 "name": "Pinterest Downloader",
                 "endpoint": "/api/download/pinterest",
                 "filename": "pinterest",
