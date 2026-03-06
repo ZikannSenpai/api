@@ -4,7 +4,7 @@
         "apiName": "ZikaNeko",
         "description": "A free and reliable API service designed for modern application development. Built with Node.js and TypeScript, delivering fast performance, stable endpoints, and easy integration.",
         "apiVersion": "v1.0.1",
-        "visitors": "2939",
+        "visitors": "3200",
         "endpoint": "0",
         "favicon": "/src/zikk.png",
         "thumbnail": "/src/thumbnail.png",
