@@ -288,6 +288,19 @@
         ],
         "tools": [
             {
+                "name": "Alight Motion Info",
+                "endpoint": "/api/tools/am",
+                "filename": "am",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "url",
+                        "required": true,
+                        "description": "Alight URL"
+                    }
+                ]
+            },
+            {
                 "name": "Screenshot Web",
                 "endpoint": "/api/tools/ssweb",
                 "filename": "ssweb",
