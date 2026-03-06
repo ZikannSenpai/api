@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://c.termai.cc/i191/f9nlM5.jpg" alt="KuroNeko API Banner" width="100%" style="border-radius: 10px;" />
+<img src="/src/zikk.png" alt="ZikaNeko API Banner" width="100%" style="border-radius: 10px;" />
 
-# KuroNeko API
+# ZikaNeko API
 **Simple, Fast, and Dynamic REST API Base built with Express & TypeScript.**
 
 <p align="center">
@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
 </p>
 
-[Demo Website](https://your-demo-link.com) • [Rest Api](https://your-api-link.com) • [Bug Report](https://github.com/DanzzAraAra/kuroneko-base-api/issues)
+[Demo Website](https://zikaneko.vercel.app) • [Rest Api](https://zikaneko.vercel.app) • [Bug Report](https://github.com/zikannsenpai/api/issues)
 
 </div>
 
@@ -21,7 +21,7 @@
 
 ## 📖 Introduction
 
-**KuroNeko API** adalah template dasar (boilerplate) untuk membuat REST API yang modern, rapi, dan mudah dikembangkan.
+**ZikaNeko API** adalah template dasar (boilerplate) untuk membuat REST API yang modern, rapi, dan mudah dikembangkan.
 
 Project ini dirancang untuk mengatasi kerumitan setup awal dengan menyediakan fitur **Auto-Load Router** berbasis konfigurasi JSON, penghitung pengunjung (visitor counter), dan antarmuka dokumentasi (Docs UI) yang estetik secara otomatis.
 
@@ -89,8 +89,8 @@ Perbandingan Mode
 Pastikan kamu sudah menginstall Node.js (versi 18 atau lebih baru).
 1. Clone & Install
 ```bash
-git clone [https://github.com/DanzzAraAra/kuroneko-base-api.git](https://github.com/DanzzAraAra/kuroneko-base-api.git)
-cd kuroneko-base-api
+git clone [https://github.com/zikannsenpai/api.git](https://github.com/zikannsenpai/api.git)
+cd api
 npm install
 ```
 
@@ -215,7 +215,7 @@ npm run pm2
 Cara Manual:
 ```bash
 npm install -g pm2
-pm2 start dist/index.js --name "kuroneko-api"
+pm2 start dist/index.js --name "zikaneko-api"
 pm2 save
 pm2 startup
 ```
@@ -250,5 +250,5 @@ Project ini dilengkapi GUI bawaan:
 </details>
 
 <div align="center">
-Created with ❤️ by Danzz
+Created with ❤️ by ZikaNyawDev
 </div>
