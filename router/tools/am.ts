@@ -36,7 +36,7 @@ export default async function amShare(req: Request, res: Response) {
     } catch (err) {
         res.status(500).json({
             status: false,
-            message: "gagal scrape"
+            message: err.message
         });
     }
 }
