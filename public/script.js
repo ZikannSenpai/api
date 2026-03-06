@@ -1,3 +1,13 @@
+/*
+Credit: @ZikaNyawDev
+  
+Tiktok: @zikannsenpai
+Github: https://github.com/zikannsenpai
+Saluran WhatsApp: https://whatsapp.com/channel/0029VaiM4OcJf05kQ3Tjnu0j
+
+DILARANG KERAS RECODE/HAPUS CREDIT!
+*/
+
 document.addEventListener("DOMContentLoaded", init);
 let globalConfig = null;
 let toastTimeout;

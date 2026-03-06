@@ -1,23 +1,27 @@
 /*
-  Danzz For You 💌
+Credit: @ZikaNyawDev
+  
+Tiktok: @zikannsenpai
+Github: https://github.com/zikannsenpai
+Saluran WhatsApp: https://whatsapp.com/channel/0029VaiM4OcJf05kQ3Tjnu0j
+
+DILARANG KERAS RECODE/HAPUS CREDIT!
 */
 
 export const STATIC_QRIS: string =
-  "00020101021126610014COM.GO-JEK.WWW01189360091433235676600210G3235676600303UMI51440014ID.CO.QRIS.WWW0215ID10264726415900303UMI5204899953033605802ID5925DANDI EKA SAPUTRA, Digita6006BANTUL61055576362070703A01630460EC";
+    "00020101021126610014COM.GO-JEK.WWW01189360091433235676600210G3235676600303UMI51440014ID.CO.QRIS.WWW0215ID10264726415900303UMI5204899953033605802ID5925DANDI EKA SAPUTRA, Digita6006BANTUL61055576362070703A01630460EC";
 
 export function crc16(s: string): string {
-    let crc = 0xFFFF;
+    let crc = 0xffff;
 
     for (let i = 0; i < s.length; i++) {
         crc ^= s.charCodeAt(i) << 8;
         for (let j = 0; j < 8; j++) {
-            crc = (crc & 0x8000) !== 0
-                ? (crc << 1) ^ 0x1021
-                : crc << 1;
+            crc = (crc & 0x8000) !== 0 ? (crc << 1) ^ 0x1021 : crc << 1;
         }
     }
 
-    return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
+    return (crc & 0xffff).toString(16).toUpperCase().padStart(4, "0");
 }
 
 export function convertCRC16(str: string): string {
@@ -45,7 +49,6 @@ export function generateQrisDynamic(nominal: number): string {
         // Gabung + CRC baru
         const finalStr = split[0] + tag54 + "5802ID" + split[1] + "6304";
         return convertCRC16(finalStr);
-
     } catch {
         return "";
     }

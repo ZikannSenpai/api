@@ -11,7 +11,7 @@
             content="API Zikan, Zikan Neko, API Gratis Indonesia, API Anime Indonesia, API Komik Gratis, API Manga, REST API Gratis, API Anime Otakudesu, API Samehadaku, API Komiku, API BacaKomik, WhatsApp Bot API, API Developer Indonesia, Free REST API, API Manhwa, API Manhua, API Novel, Downloader Anime API, Web Tools API, API Indonesia, Zikan API, Zikan API, API Gratis Terlengkap, API Anime Sub Indo, API Komik Indonesia, Bot WhatsApp Indonesia, API untuk Developer, Free API Service, API Documentation Indonesia"
         />
 
-        <title>ZikaNyaw | Dashboard</title>
+        <title>ZikaNeko - Free Rest API | Dashboard</title>
         <link rel="icon" type="image/x-icon" href="favico/favicon.ico" />
         <link
             rel="icon"
@@ -38,6 +38,7 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         />
+        <link rel="stylesheet" href="style.css" />
 
         <script>
             tailwind.config = {
@@ -288,6 +289,12 @@
             }
 
             /* VARIANTS MAPPING */
+            .variant-warn {
+                --surface-color: #f10101; /* Primary */
+                --side-color: #8a0000; /* Darker Primary */
+                --text-color: #ffffff;
+                --border-color: transparent;
+            }
             .variant-solid {
                 --surface-color: #6366f1; /* Primary */
                 --side-color: #4338ca; /* Darker Primary */
@@ -392,6 +399,7 @@
                             <div class="absolute bottom-3 left-3 z-20">
                                 <span
                                     class="bg-white border-2 border-dark px-2 py-1 text-[10px] font-bold shadow-[2px_2px_0px_0px_#1e293b] flex items-center gap-1"
+                                    id="dash-ver"
                                 >
                                     <i
                                         class="fa-solid fa-server text-primary"
@@ -681,7 +689,8 @@
                         config.settings.apiName;
                     document.getElementById("dash-desc").innerText =
                         config.settings.description;
-
+                    document.getElementById("dash-ver").innerText =
+                        config.settings.apiVersion;
                     const btnChannel = document.getElementById("btn-channel");
                     if (config.settings.channelUrl)
                         btnChannel.href = config.settings.channelUrl;
@@ -720,9 +729,9 @@
                     console.error(err);
                     // Fallback for demo/error
                     document.getElementById("dash-title").innerText =
-                        "KuroNeko";
+                        "ZikaNeko";
                     document.getElementById("dash-desc").innerText =
-                        "Simple Dashboard Template";
+                        "Simple Dashboard";
 
                     setTimeout(() => {
                         document
@@ -735,5 +744,6 @@
                     }, 1000);
                 });
         </script>
+        <script src="script.js"></script>
     </body>
 </html>
