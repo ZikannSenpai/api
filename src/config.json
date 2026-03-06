@@ -3,6 +3,7 @@
         "creator": "ZikaNyawDev",
         "apiName": "ZikaNeko",
         "description": "A free and reliable API service designed for modern application development. Built with Node.js and TypeScript, delivering fast performance, stable endpoints, and easy integration.",
+        "apiKey": "zikaneko",
         "apiVersion": "v1.0.5",
         "visitors": "3200",
         "endpoint": "0",
@@ -19,6 +20,11 @@
                 "filename": "zikaneko",
                 "method": "GET",
                 "params": [
+                    {
+                        "name": "apikey",
+                        "required": true,
+                        "description": "Api Key"
+                    },
                     {
                         "name": "q",
                         "required": true,

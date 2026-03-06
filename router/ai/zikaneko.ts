@@ -180,10 +180,19 @@ async function chatWithGemini(
     }
 }
 
-export default async function kuronekoHandler(req: Request, res: Response) {
+export default async function zikanekoHandler(req: Request, res: Response) {
+    const key = (req.query.apikey || req.body.apikey) as string;
     const q = (req.query.q || req.body.q) as string;
     const session = (req.query.session || req.body.session) as string;
+    const apikey = await axios.get("/config");
+    const apiKey = apikey.settings.apiKey;
 
+    if (key !== apiKey) {
+        return res.status(400).json({
+            status: false,
+            message: "Apikey Tidak Valid"
+        });
+    }
     if (!q) {
         return res.status(400).json({
             status: false,
