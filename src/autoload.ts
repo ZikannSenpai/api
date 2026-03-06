@@ -165,41 +165,34 @@ const registerRoute = (
                     res: Response,
                     next: NextFunction
                 ) => {
-                    apiKeyMiddleware(req, res, async () => {
-                        logRouterRequest(req, res);
+                    logRouterRequest(req, res);
 
-                        const originalJson = res.json;
-                        res.json = function (body) {
-                            if (
-                                body &&
-                                typeof body === "object" &&
-                                !Array.isArray(body)
-                            ) {
-                                const modifiedBody = {
-                                    creator: targetCreator,
-                                    ...body
-                                };
-                                return originalJson.call(this, modifiedBody);
-                            }
-                            return originalJson.call(this, body);
-                        };
-
-                        try {
-                            await handler(req, res, next);
-                        } catch (err) {
-                            console.error(
-                                `Error in route ${route.endpoint}:`,
-                                err
-                            );
-                            res.status(500).json({
-                                error: "Internal Server Error",
-                                message:
-                                    err instanceof Error
-                                        ? err.message
-                                        : String(err)
-                            });
+                    const originalJson = res.json;
+                    res.json = function (body) {
+                        if (
+                            body &&
+                            typeof body === "object" &&
+                            !Array.isArray(body)
+                        ) {
+                            const modifiedBody = {
+                                creator: targetCreator,
+                                ...body
+                            };
+                            return originalJson.call(this, modifiedBody);
                         }
-                    });
+                        return originalJson.call(this, body);
+                    };
+
+                    try {
+                        await handler(req, res, next);
+                    } catch (err) {
+                        console.error(`Error in route ${route.endpoint}:`, err);
+                        res.status(500).json({
+                            error: "Internal Server Error",
+                            message:
+                                err instanceof Error ? err.message : String(err)
+                        });
+                    }
                 };
 
                 if (route.method === "GET")
