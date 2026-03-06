@@ -533,7 +533,7 @@
             class="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm"
         >
             <div
-                class="relative w-full aspect-[16/9] border-2 border-dark rounded-lg overflow-hidden group mb-6 bg-slate-100"
+                class="relative w-[90%] max-w-md bg-white border border-slate-200 rounded-xl shadow-hard p-6 animate-fade-up text-center"
             >
                 <button
                     id="closePopup"
@@ -545,11 +545,14 @@
                     Konichiwa, Welcome to API ZikaNeko Documentation!
                 </h1>
                 <!-- thumbnail -->
-                <img
-                    src="../src/zikk.png"
-                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
-                />
-
+                <div
+                    class="relative w-full aspect-[16/9] border-2 border-dark rounded-lg overflow-hidden group mb-6 bg-slate-100"
+                >
+                    <img
+                        src="../src/zikk.png"
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                    />
+                </div>
                 <h2 class="font-display text-xl text-slate-800 mb-2">
                     Halo Selamat datang di Dokumentasi API!
                 </h2>
