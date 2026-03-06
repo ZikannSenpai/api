@@ -234,6 +234,19 @@
         ],
         "search": [
             {
+                "name": "Google Image Search",
+                "endpoint": "/api/search/gimage",
+                "filename": "gimage",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "q",
+                        "required": true,
+                        "description": "Anime Kawaii"
+                    }
+                ]
+            },
+            {
                 "name": "Lyrics Search",
                 "endpoint": "/api/search/lyrics",
                 "filename": "lyrics",
@@ -243,6 +256,19 @@
                         "name": "q",
                         "required": true,
                         "description": "Query"
+                    }
+                ]
+            },
+            {
+                "name": "Play YT",
+                "endpoint": "/api/search/play",
+                "filename": "play",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "q",
+                        "required": true,
+                        "description": "Song Title or Youtube Link"
                     }
                 ]
             },
