@@ -177,8 +177,6 @@ const registerRoute = (
                         ) {
                             const modifiedBody = {
                                 creator: targetCreator,
-                                status: 200,
-                                channelWhatsapp: channelWA,
                                 ...body
                             };
                             return originalJson.call(this, modifiedBody);
