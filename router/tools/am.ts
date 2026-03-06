@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import axios from "axios";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 
 export default async function amShare(req: Request, res: Response) {
     const url = (req.query.url || req.body.url) as string;
