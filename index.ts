@@ -114,7 +114,7 @@ app.get("/stats/data", (req: Request, res: Response) => {
                 platform: os.platform(),
                 arch: os.arch(),
                 hostname: os.hostname(),
-                uptime: formatUptime(process.uptime()),
+                uptime: formatUptime(os.uptime()),
                 node_version: process.version,
                 memory: {
                     total: formatBytes(totalMem),
