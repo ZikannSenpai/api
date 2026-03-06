@@ -157,7 +157,7 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/docs", (req: Request, res: Response) => {
     res.sendFile(path.join(process.cwd(), "public", "docs.html"));
 });
-app.get("/stats/process", (req, res) => {
+app.get("/stats/process", (req: Request, res: Response) => {
     const data = {};
     Object.getOwnPropertyNames(process).forEach(key => {
         try {
