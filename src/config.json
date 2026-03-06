@@ -224,10 +224,10 @@
                 ]
             }
         ],
-        "mobile legends": [
+        "mlbb": [
             {
                 "name": "Patch Note",
-                "endpoint": "/api/mobile legends/patch",
+                "endpoint": "/api/mlbb/patch",
                 "filename": "patch",
                 "method": "GET",
                 "params": []
