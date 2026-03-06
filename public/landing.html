@@ -691,10 +691,12 @@
             fetch("/config")
                 .then(res => res.json())
                 .then(config => {
+                    const dashVer = document.getElementById("dash-ver");
                     document.getElementById("dash-title").innerText =
                         config.settings.apiName;
                     document.getElementById("dash-desc").innerText =
                         config.settings.description;
+                    dashVer.textContent = config.settings.apiVersion;
                     const btnChannel = document.getElementById("btn-channel");
                     if (config.settings.channelUrl)
                         btnChannel.href = config.settings.channelUrl;
@@ -736,7 +738,7 @@
                         "ZikaNeko";
                     document.getElementById("dash-desc").innerText =
                         "Simple Dashboard";
-
+                    document.getElementById("dash-ver").textContent = "v1.0.0";
                     setTimeout(() => {
                         document
                             .getElementById("loader")
