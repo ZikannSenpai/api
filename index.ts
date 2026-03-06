@@ -107,7 +107,7 @@ app.get("/stats/data", (req: Request, res: Response) => {
         const totalMem = os.totalmem();
         const freeMem = os.freemem();
         const usedMem = totalMem - freeMem;
-        const cpus = os.cpu();
+        const cpus = os.cpus();
         res.json({
             status: true,
             server: {
