@@ -99,7 +99,6 @@ const reloadRouter = () => {
 export const loadRouter = (app: Application, config: any) => {
     const tags = config.tags;
     const creatorName = config.settings.creator;
-    const channelWa = config.settings.channelUrl;
 
     if (!tags) {
         console.error("[!] Error: 'tags' not found in config.json");
@@ -122,7 +121,6 @@ const registerRoute = (
 ) => {
     const targetApp = app || appInstance;
     const targetCreator = creatorName || currentConfig?.settings?.creator;
-    const channelWA = channelWa || currentConfig?.settings?.channelUrl || "";
 
     if (!targetApp || !targetCreator) return;
 
