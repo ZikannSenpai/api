@@ -107,7 +107,7 @@ app.get("/stats/data", (req: Request, res: Response) => {
         const totalMem = os.totalmem();
         const freeMem = os.freemem();
         const usedMem = totalMem - freeMem;
-        const cpus = process.cpuUsage();
+        const cpus = os.cpu();
         res.json({
             status: true,
             server: {
@@ -132,7 +132,7 @@ app.get("/stats/data", (req: Request, res: Response) => {
             requests: recentRequests
         });
     } catch (e) {
-        res.status(500).json({ status: false });
+        res.status(500).json({ status: false, message: e });
     }
 });
 app.get("/stats", (req: Request, res: Response) => {
