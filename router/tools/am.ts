@@ -13,7 +13,7 @@ export default async function amShare(req: Request, res: Response) {
     }
 
     try {
-        const { data } = await axios.get(url, {
+        const data = await axios.get(url, {
             headers: {
                 "User-Agent": "Mozilla/5.0"
             }
