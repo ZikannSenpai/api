@@ -185,16 +185,10 @@ export default async function zikanekoHandler(req: Request, res: Response) {
     const q = (req.query.q || req.body.q) as string;
     const session = (req.query.session || req.body.session) as string;
     const apiKey = "zikaneko";
-    if (key !== apiKey) {
+    if (key !== apiKey && !q) {
         return res.status(400).json({
             status: false,
-            message: "Apikey Tidak Valid"
-        });
-    }
-    if (!q) {
-        return res.status(400).json({
-            status: false,
-            message: "Parameter 'q' diperlukan."
+            message: "Apikey Tidak Valid atau Query belum diisi"
         });
     }
     try {
