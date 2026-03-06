@@ -527,35 +527,48 @@
                 </div>
             </div>
         </div>
-        <!-- POPUP -->
         <div
             id="welcomePopup"
             class="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm"
         >
             <div
-                class="relative w-[90%] max-w-md bg-white border border-slate-200 rounded-xl shadow-hard p-6 animate-fade-up"
+                class="relative w-[90%] max-w-md bg-white border border-slate-200 rounded-xl shadow-hard p-6 animate-fade-up text-center"
             >
-                <!-- close -->
                 <button
                     id="closePopup"
                     class="hidden absolute top-3 right-3 text-slate-500 hover:text-slate-900 text-xl"
                 >
                     <i class="fa-solid fa-xmark"></i>
                 </button>
-
-                <!-- content -->
                 <h2 class="font-display text-xl text-slate-800 mb-2">
                     Halo Selamat datang di Dokumentasi API ZikaNeko!
                 </h2>
+                <!-- thumbnail -->
+                <img
+                    src="../src/zikk.png"
+                    class="w-20 h-20 mx-auto mb-4 rounded-xl border border-slate-200 shadow-hard-sm"
+                />
+
+                <h2 class="font-display text-xl text-slate-800 mb-2">
+                    Halo Selamat datang di Dokumentasi API!
+                </h2>
 
                 <p class="text-sm text-slate-600 leading-relaxed">
-                    Layanan API gratis dan andal yang dirancang untuk
-                    pengembangan aplikasi modern. Dibangun dengan Node.js dan
-                    TypeScript, memberikan performa cepat, endpoint yang stabil,
-                    dan integrasi yang mudah.
+                    Layanan API gratis dan andal untuk developer. Dibangun
+                    dengan Node.js dan TypeScript dengan endpoint stabil dan
+                    integrasi mudah.
                 </p>
 
-                <!-- countdown -->
+                <!-- tombol -->
+                <a
+                    href="https://whatsapp.com/channel/0029VaiM4OcJf05kQ3Tjnu0j"
+                    target="_blank"
+                    class="mt-4 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm shadow-hard hover:shadow-hard-hover transition"
+                >
+                    <i class="fa-brands fa-whatsapp"></i>
+                    Join Saluran WhatsApp
+                </a>
+
                 <div class="mt-4 text-xs text-slate-400">
                     tombol tutup muncul dalam
                     <span id="countdown">3</span> detik
