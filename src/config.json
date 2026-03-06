@@ -224,6 +224,15 @@
                 ]
             }
         ],
+        "mobile legends": [
+            {
+                "name": "Patch Note",
+                "endpoint": "/api/mobile legends/patch",
+                "filename": "patch",
+                "method": "GET",
+                "params": []
+            }
+        ],
         "random": [
             {
                 "name": "Waifu",
