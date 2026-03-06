@@ -12,7 +12,7 @@ export default async function gimage(req: Request, res: Response) {
     }
 
     try {
-        const url = `https://api.danzy.web.id/api/search/gimage?q=${slug}`;
+        const url = `https://api.danzy.web.id/api/search/gimage?query=${slug}`;
 
         const { data } = await axios.get(url, {
             headers: {
