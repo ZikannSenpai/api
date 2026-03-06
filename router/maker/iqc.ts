@@ -1,0 +1,34 @@
+import { Request, Response } from "express";
+import axios from "axios";
+
+export default async function iqc(req: Request, res: Response) {
+    const time = (req.query.time || req.body.time) as string;
+    const battery = (req.query.bat || req.body.bat) as string;
+    const text = (req.query.text || req.body.text) as string;
+
+    if (!text) {
+        return res.status(400).json({
+            status: false,
+            message: "Query wajib diisi."
+        });
+    }
+
+    try {
+        const url = `https://api.fikmydomainsz.xyz/imagecreator/iqc?time=${encodeURIComponent(time)}&battery=${encodeURIComponent(bat)}&messageText=${encodeURIComponent(text)}&provider=ios`;
+        const data = await axios.get(url, {
+            responseType: "arraybuffer",
+            headers: {
+                "User-Agent":
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+                Referer: "https://api.fikmydomainsz.xyz/",
+                Connection: "keep-alive"
+            }
+        });
+
+        res.set("Content-Type", "image/png");
+        res.send(response.data);
+    } catch (error: any) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+}

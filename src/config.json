@@ -188,6 +188,29 @@
                 ]
             },
             {
+                "name": "iPhone Quoted Chat Generator",
+                "endpoint": "/api/maker/iqc",
+                "filename": "iqc",
+                "method": "GET",
+                "params": [
+                    {
+                        "name": "time",
+                        "required": true,
+                        "description": "Input Time"
+                    },
+                    {
+                        "name": "bat",
+                        "required": true,
+                        "description": "Input Battery"
+                    },
+                    {
+                        "name": "text",
+                        "required": true,
+                        "description": "Input Text"
+                    }
+                ]
+            },
+            {
                 "name": "Remove Background",
                 "endpoint": "/api/maker/removebg",
                 "filename": "removebg",
