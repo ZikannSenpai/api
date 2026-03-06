@@ -12,7 +12,7 @@ export default async function lyrics(req: Request, res: Response) {
     }
 
     try {
-        const url = `https://api.danzy.web.id/api/search/spotify?q=${slug}`;
+        const url = `https://api.danzy.web.id/api/search/lyrics?q=${slug}`;
 
         const { data } = await axios.get(url, {
             headers: {
