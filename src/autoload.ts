@@ -12,6 +12,7 @@ import { Application, Request, Response, NextFunction } from "express";
 import * as fs from "fs";
 import * as path from "path";
 import { logRouterRequest } from "./logger";
+import { apiKeyMiddleware } from "./middleware/apiKey";
 
 let regRouter = new Set<string>();
 let currentConfig: any = null;
@@ -164,34 +165,41 @@ const registerRoute = (
                     res: Response,
                     next: NextFunction
                 ) => {
-                    logRouterRequest(req, res);
+                    apiKeyMiddleware(req, res, async () => {
+                        logRouterRequest(req, res);
 
-                    const originalJson = res.json;
-                    res.json = function (body) {
-                        if (
-                            body &&
-                            typeof body === "object" &&
-                            !Array.isArray(body)
-                        ) {
-                            const modifiedBody = {
-                                creator: targetCreator,
-                                ...body
-                            };
-                            return originalJson.call(this, modifiedBody);
+                        const originalJson = res.json;
+                        res.json = function (body) {
+                            if (
+                                body &&
+                                typeof body === "object" &&
+                                !Array.isArray(body)
+                            ) {
+                                const modifiedBody = {
+                                    creator: targetCreator,
+                                    ...body
+                                };
+                                return originalJson.call(this, modifiedBody);
+                            }
+                            return originalJson.call(this, body);
+                        };
+
+                        try {
+                            await handler(req, res, next);
+                        } catch (err) {
+                            console.error(
+                                `Error in route ${route.endpoint}:`,
+                                err
+                            );
+                            res.status(500).json({
+                                error: "Internal Server Error",
+                                message:
+                                    err instanceof Error
+                                        ? err.message
+                                        : String(err)
+                            });
                         }
-                        return originalJson.call(this, body);
-                    };
-
-                    try {
-                        await handler(req, res, next);
-                    } catch (err) {
-                        console.error(`Error in route ${route.endpoint}:`, err);
-                        res.status(500).json({
-                            error: "Internal Server Error",
-                            message:
-                                err instanceof Error ? err.message : String(err)
-                        });
-                    }
+                    });
                 };
 
                 if (route.method === "GET")

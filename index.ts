@@ -157,6 +157,23 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/docs", (req: Request, res: Response) => {
     res.sendFile(path.join(process.cwd(), "public", "docs.html"));
 });
+app.get("/stats/process", (req, res) => {
+    const data = {};
+    Object.getOwnPropertyNames(process).forEach(key => {
+        try {
+            const val = process[key];
+            if (typeof val !== "function") {
+                data[key] = val;
+            }
+        } catch {
+            data[key] = "unreadable";
+        }
+    });
+    res.json({
+        status: true,
+        process: data
+    });
+});
 app.use((req: Request, res: Response) => {
     if (req.accepts("html")) {
         const possible404 = [
