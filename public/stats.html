@@ -223,6 +223,40 @@
                         <div
                             class="w-12 h-12 rounded-xl bg-red-100 text-red-500 flex items-center justify-center text-xl shadow-sm"
                         >
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <div>
+                            <h3
+                                class="text-xs font-bold text-slate-400 uppercase tracking-widest"
+                            >
+                                Total Router
+                            </h3>
+                            <p
+                                id="route-load"
+                                class="font-mono font-bold text-lg text-slate-700"
+                            >
+                                0
+                            </p>
+                        </div>
+                    </div>
+                    <p
+                        id="route-model"
+                        class="text-[10px] font-mono text-slate-500 truncate"
+                    >
+                        Counting...
+                    </p>
+                </div>
+
+                <div
+                    class="glass-card rounded-2xl p-6 relative overflow-hidden group"
+                >
+                    <div
+                        class="absolute -right-4 -top-4 w-24 h-24 bg-red-400/20 rounded-full blur-xl group-hover:bg-red-400/30 transition-all"
+                    ></div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-red-100 text-red-500 flex items-center justify-center text-xl shadow-sm"
+                        >
                             <i class="fa-solid fa-microchip"></i>
                         </div>
                         <div>
@@ -341,6 +375,17 @@
                 try {
                     const response = await fetch("/stats/data");
                     const data = await response.json();
+                    const routeRes = await fetch("/config");
+                    const resData = await routeRes.json();
+
+                    if (resData) {
+                        const r = resData.tags;
+                        const value = Object.values(r).flat().length;
+                        const key = Object.keys(r).length;
+                        document.getElementById("route-load").innerText = value;
+                        document.getElementById("route-model").innerText =
+                            `From total key: ${key}`;
+                    }
 
                     if (data.status) {
                         const s = data.server;
